@@ -1,0 +1,41 @@
+@layer starlight, nexus;
+
+html[data-theme="dark"] {
+    --mentor-accent-color: #0078d4;
+    --sl-color-text-invert: var(--sl-color-white);
+}
+
+html[data-theme="light"] {
+    --mentor-accent-color: #005fb8;
+    --sl-color-text-invert: var(--sl-color-black);
+}
+
+:root {
+    --sl-text-5xl: 3.5rem;
+    --sl-content-width: 50rem;
+    --sl-content-margin-inline: unset;
+    --sl-color-text-accent: var(--mentor-accent-color);
+}
+
+@layer mentor {
+    html[data-theme="dark"] .sl-link-button.primary {
+        color: var(--sl-color-text-invert);
+    }
+
+    .site-title {
+        color: var(--sl-color-white);
+        gap: 10px;
+    }
+
+    .hero {
+        grid-template-columns: none;
+        padding-block: 0;
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+    }
+
+    .sl-container {
+        max-width: var(--sl-content-width);
+        margin-inline: 1rem;
+    }
+}

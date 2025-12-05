@@ -1,11 +1,11 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
-template: splash # Remove or comment out this line to display the site sidebar on this page.
+title: Mentor for VS Code
+description: The comprehensive IDE for knowledge graph projects.
 hero:
-  tagline: Congrats on setting up a new Starlight project!
-  image:
-    file: ../../assets/houston.webp
+  tagline: The comprehensive IDE for knowledge graph projects.
+  customCss: [
+    './src/assets/styles/mentor.css',
+  ]
   actions:
     - text: Example Guide
       link: /guides/example/
@@ -16,25 +16,76 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+![Screenshot of Mentor for Visual Studio Code](../../assets/images/screenshot.png)
 
-## Next steps
+## Features
+This extension provides the following features:
+Workspace Tree
 
-<CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
-</CardGrid>
+    Navigate all ontology and SPARQL files in the project
+    Easily identify problems in all ontologies in the workspace
+
+Workspace Index
+
+    Creates an index of all ontologies in the workspace
+    Find all references to a subject in the workspace
+    Provides code lenses that show reference statistics for a subject
+    Jump to definitions of subjects in other files
+
+Definitions Tree
+
+    Showing the definitions in RDFS or OWL ontologies
+        Ontologies
+        Classes
+        Properties
+        Individuals
+    Showing the definitions of SHACL shapes
+        Quickly jump to shapes associated with a class or property
+        Node Shapes
+        Property Shapes with property path labels
+        Rules
+        Validators
+    Showing the definitions in SKOS thesauri
+        Concept Schemes
+        Concepts
+        Collections
+    Grouping of definitions by concept scheme, ontology or rdfs:isDefinedBy
+    Quickly jump to definitions
+    RDFS and structural OWL reasoning
+    Find all references in the current document
+    Open URIs in web browser
+    Show definitions in multiple languages
+        Select language tag of the displayed labels and definitions
+        Highlight the terms missing in the selected language (optional)
+
+SPARQL Query
+
+    Execute SPARQL queries against external endpoints / databases
+    Currently support auth methods: Basic, Bearer (OAuth planned)
+    Execute SPARQL queries against all files in your workspace
+    With the workspace: URI scheme you can address files relative to your workspace / repository
+    Auto-complete support
+    Create Notebooks with SPARQL queries
+
+N3, Turtle, Trig, RDF/XML and SPARQL Syntax
+
+    Syntax highlighting
+    Syntax validation
+    Checking conformance of literal values to XSD specifications
+    Checking if namespace IRIs end with separator (/,#, :, _, -)
+    Highlight unused namespace prefixes
+    Highlight duplicate namespace prefix definitions
+
+Refactoring
+
+    Rename prefixes
+    Rename resource labels in prefixed names and URIs
+    Refactor IRI references into prefixes names
+    Auto implement undefined prefixes
+    Sort prefix definitions
+    Remove unused prefix definitions
+
+Online Collaboration
+
+    Runnable in the browser on vscode.dev
+    Edit GitHub repositories online
