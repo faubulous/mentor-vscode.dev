@@ -1,91 +1,105 @@
 ---
-title: Mentor for VS Code
-description: The comprehensive IDE for knowledge graph projects.
+title: Welcome
+description: The developer friendly IDE for RDF knowledge graph projects.
 hero:
-  tagline: The comprehensive IDE for knowledge graph projects.
+  tagline: The developer friendly IDE for RDF knowledge graph projects.
   customCss: [
     './src/assets/styles/mentor.css',
   ]
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Get Started
+      link: /guide/setupd
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
+    - text: User Guide
+      link: /guide/
+      icon: open-book
       variant: minimal
 ---
 
-![Screenshot of Mentor for Visual Studio Code](../../assets/images/screenshot.png)
+import { Card } from '@astrojs/starlight/components';
+import { LinkCard } from '@astrojs/starlight/components';
+
+<img src="/screenshots/window.png" alt="Screenshot of Mentor for Visual Studio Code" width="600" />
+
+## News
+<Card icon="rss" title="Version 0.3.6 Released" href="/release-history/" variant="highlighted">
+  We are excited to announce the release of Mentor version 0.3.6! This update brings several new features, improvements, and bug fixes to enhance your experience with Mentor. <a href="/release-history/">Read more about the changes in this release.</a>
+</Card>
+
+[Release History](/release-history/)
 
 ## Features
-This extension provides the following features:
-Workspace Tree
+Mentor offers a wide range of features to help you efficiently develop and manage your knowledge management and application projects:
 
-    Navigate all ontology and SPARQL files in the project
-    Easily identify problems in all ontologies in the workspace
+### Workspace
 
-Workspace Index
+<LinkCard
+  title="Workspace Index"
+  href="/guide/workspace-index/"
+  description="Find usages and quickly jump to subject definitions across files in your workspace."
+/>
 
-    Creates an index of all ontologies in the workspace
-    Find all references to a subject in the workspace
-    Provides code lenses that show reference statistics for a subject
-    Jump to definitions of subjects in other files
+<LinkCard
+  title="Workspace Tree"
+  href="/guide/workspace-tree/"
+  description="Navigate and inspect all ontology and SPARQL files in the project to quickly find and identify problems across the workspace."
+/>
 
-Definitions Tree
+<LinkCard
+  title="Definitions Tree"
+  href="/guide/definitions-tree/"
+  description="Explore and manage the definitions of classes, properties, shapes, and concepts the current document with support for structural OWL reasoning."
+/>
 
-    Showing the definitions in RDFS or OWL ontologies
-        Ontologies
-        Classes
-        Properties
-        Individuals
-    Showing the definitions of SHACL shapes
-        Quickly jump to shapes associated with a class or property
-        Node Shapes
-        Property Shapes with property path labels
-        Rules
-        Validators
-    Showing the definitions in SKOS thesauri
-        Concept Schemes
-        Concepts
-        Collections
-    Grouping of definitions by concept scheme, ontology or rdfs:isDefinedBy
-    Quickly jump to definitions
-    RDFS and structural OWL reasoning
-    Find all references in the current document
-    Open URIs in web browser
-    Show definitions in multiple languages
-        Select language tag of the displayed labels and definitions
-        Highlight the terms missing in the selected language (optional)
+<LinkCard
+  title="Settings"
+  href="/guide/settings/"
+  description="Share Mentor settings across your team by committing workspace settings to your repository."
+/>
 
-SPARQL Query
+### Editor
 
-    Execute SPARQL queries against external endpoints / databases
-    Currently support auth methods: Basic, Bearer (OAuth planned)
-    Execute SPARQL queries against all files in your workspace
-    With the workspace: URI scheme you can address files relative to your workspace / repository
-    Auto-complete support
-    Create Notebooks with SPARQL queries
+<LinkCard
+  title="Syntax Highlighting & Validation"
+  href="/guide/syntax-highlighting/"
+  description="Highlighting and linting of N-Tripeles, N-Quads, Turtle, Trig, RDF/XML and SPARQL syntax."/>
 
-N3, Turtle, Trig, RDF/XML and SPARQL Syntax
+<LinkCard
+  title="Prefix Management"
+  href="/guide/prefix-management/"
+  description="Auto-implement and manage namespace prefixes in your project."
+/>
 
-    Syntax highlighting
-    Syntax validation
-    Checking conformance of literal values to XSD specifications
-    Checking if namespace IRIs end with separator (/,#, :, _, -)
-    Highlight unused namespace prefixes
-    Highlight duplicate namespace prefix definitions
+<LinkCard
+  title="Refactoring"
+  href="/guide/refactoring/"
+  description="Rename prefixes and resource labels, sort and remove unused prefix definitions, and more."
+/>
 
-Refactoring
+### Development
 
-    Rename prefixes
-    Rename resource labels in prefixed names and URIs
-    Refactor IRI references into prefixes names
-    Auto implement undefined prefixes
-    Sort prefix definitions
-    Remove unused prefix definitions
+<LinkCard
+  title="Notebooks"
+  href="/guide/notebooks/"
+  description="Create and run interactive notebooks combining SPARQL queries, RDF content and Markdown documentation."
+/>
 
-Online Collaboration
+<LinkCard
+  title="SPARQL Query"
+  href="/guide/sparql/"
+  description="Write and execute SPARQL queries with auto-completion, syntax highlighting, and validation."
+/>
 
-    Runnable in the browser on vscode.dev
-    Edit GitHub repositories online
+### Collaboration
+
+<LinkCard
+  title="Live Collaboration"
+  href="/guide/live-collaboration/"
+  description="Run Mentor in the browser on vscode.dev and edit GitHub repositories online."
+/>
+
+<LinkCard
+  title="Git Integration"
+  href="/guide/git-integration/"
+  description="Seamlessly integrate with Git to manage version control and collaborate with your team."
+/>
