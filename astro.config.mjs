@@ -21,32 +21,23 @@ export default defineConfig({
 					slug: ''
 				},
 				{
-					label: 'User Guide',
+					label: 'Getting Started',
+					slug: 'guide/getting-started'
+				},
+				{
+					label: 'Workspace Features',
 					items: [
 						{
-							label: 'Getting Started',
-							slug: 'guide/getting-started'
+							label: 'Workspace Index',
+							slug: 'guide/workspace/workspace-index'
 						},
 						{
-							label: 'Workspace',
-							items: [
-								{
-									label: 'Workspace Index',
-									slug: 'guide/workspace/workspace-index'
-								},
-								{
-									label: 'Workspace Tree',
-									slug: 'guide/workspace/workspace-tree'
-								},
-								{
-									label: 'Definitions Tree',
-									slug: 'guide/workspace/definitions-tree'
-								},
-								{
-									label: 'Settings',
-									slug: 'guide/workspace/settings'
-								}
-							]
+							label: 'Workspace Tree',
+							slug: 'guide/workspace/workspace-tree'
+						},
+						{
+							label: 'Definitions Tree',
+							slug: 'guide/workspace/definitions-tree'
 						}
 					]
 				}

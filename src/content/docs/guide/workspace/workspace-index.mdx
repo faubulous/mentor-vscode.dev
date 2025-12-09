@@ -7,4 +7,58 @@ hero:
   ]
 ---
 
-TODO
+import { Aside } from '@astrojs/starlight/components';
+import { LinkCard } from '@astrojs/starlight/components';
+
+Upon opening a workspace, Mentor automatically builds a comprehensive index of all RDF terms used across the files in your workspace. This index enables powerful features such as "Find Usages" and "Go to Definition", allowing you to quickly navigate and explore your knowledge graph project.
+
+The index is kept entirely in memory and will be rebuilt each time you open the workspace. When files have changed, are added or removed the index is updated incrementally to reflect these changes.
+
+## Indexed Data
+Mentor keeps track of the following RDF related data in your workspace:
+
+| Data      | Description |
+| ----------------- | ------------- |
+| **References**  | A mapping of IRIs to the files and line numbers where they are used, either as a subject or an object of a triple. |
+| **Definitions** | A mapping of IRIs to the files and line numbers where they are defined as a subject with an `rdf:type` predicate. |
+| **Prefixes**     | A mapping of prefixes to their corresponding namespace IRIs, along with the files where they are declared. |
+| **Triples**   | An in-memory representation of all RDF triples found in the workspace, allowing for querying the data with SPARQL. |
+
+## Indexing Status
+The indexing process runs in the background and may take a few moments to complete, depending on the size of your workspace. You can monitor the indexing status in the Mentor status bar at the bottom of the Visual Studio Code window:
+
+<img class="screenshot my-3" src="/screenshots/index-status.png" alt="Screenshot of the Indexing status bar in Visual Studio Code" width="600" />
+
+## Memory Usage
+The memory consumption depends on the size of your workspace and the number of RDF terms used. For large workspaces, this may lead to increased memory usage. You can monitor the memory consumption of Mentor in the Visual Studio Code Process Explorer.
+
+<Aside type="tip" class="my-3">
+To open the Process Explorer, go to the Command Palette (`Ctrl+Shift+P`), and type "Process Explorer", then select "Open Process Explorer".
+</Aside>
+
+<Aside type="caution" class="my-3">
+Please be aware that very large workspaces may lead to out-of-memory errors. If you encounter such issues, consider excluding certain files or folders from being indexed using the settings described below.
+</Aside>
+
+## Settings
+To avoid long indexing times or out-of-memory errors in large workspaces, you can configure Mentor to 
+exclude certain files or folders from being indexed. The following settings are available:
+
+<LinkCard
+  title="mentor.index.ignoreFolders"
+  href="vscode://settings/mentor.index.ignoreFolders"
+  description="An array of folder paths relative to the workspace root. Any folders specified in 
+these ignore files will be excluded from the indexing process.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.index.maxFileSize"
+  href="vscode://settings/mentor.index.maxFileSize"
+  description="You can exclude large files from being indexed by setting a maximum file size limit in the Mentor settings. Files exceeding this size which is specified in bytes will be skipped during the indexing process.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.index.useGitIgnore"
+  href="vscode://settings/mentor.index.useGitIgnore"
+  description="Enable or disable the use of .gitignore files for excluding files from the indexing process. When enabled, Mentor will respect the rules defined in your .gitignore files. The default value is true.">
+</LinkCard>

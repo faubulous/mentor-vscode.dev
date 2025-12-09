@@ -7,4 +7,24 @@ hero:
   ]
 ---
 
-TODO
+The workspace tree in Mentor provides a hierarchical view of all supported file types within your workspace. It is a filtered view that is similar to the standard Visual Studio Code Explorer, focusing specifically on files relevant to RDF knowledge graph development.
+
+<img class="screenshot my-3" src="/screenshots/workspace-tree.png" alt="Screenshot of the Workspace Tree in Visual Studio Code" width="450" />
+
+### Actions
+The workspace tree offers several actions that are specific to managing your RDF files:
+
+| Action | Description |
+| ----------------- | ------------- |
+| **Find Problems** | Forces indexing of all files in the workspace and highlights any issues found in the files within the tree view. |
+| **Create Document** | Opens a dialog to create a new RDF document in the selected folder. You can choose from various [supported RDF serialization formats](/supported-formats) such as Turtle, JSON-LD, or RDF/XML. |
+| **Refresh Tree** | Manually refreshes the workspace tree to reflect any recent changes in the files. |
+| **Settings** | Opens the Mentor settings where you can configure various options related to the workspace tree and indexing. |
+
+### Highlighted Issues
+Besides providing quick access to your RDF files, the workspace tree also shows issues and warnings detected in the files, allowing you to easily identify and navigate to problematic areas in your code.
+
+| Colour | Description |
+| ----------------- | ------------- |
+| **Red**  | Indicates errors in the RDF files, such as syntax errors or invalid RDF constructs. |
+| **Yellow** | Indicates warnings, such as deprecated terms or potential issues that may not prevent parsing but could lead to problems later. |

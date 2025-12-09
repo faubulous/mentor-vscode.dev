@@ -7,4 +7,30 @@ hero:
   ]
 ---
 
-TODO
+The Definitions Tree provides a hierarchical view of all RDF terms that are defined 
+in the active document. It allows you to quickly navigate to the definitions within 
+your RDF files and execute actions on them. 
+
+The tree shows all subjects in the current document which have an asserted `rdf:type` 
+predicate and which are recognised ontology (RDFS and OWL) as well as taxonomy (SKOS) 
+types. Mixing ontology and taxonomy terms in the same document is supported.
+
+## Ontology
+The tree features support for common ontology terms such as classes, properties, and 
+individuals. By default, the defined terms are grouped by the ontology they are part of.
+If no ontology information is available, the terms are grouped under "Unknown".
+
+### OWL Features
+To support correct display of subclass relationships, Mentor applies structural reasoning
+to the ontology terms defined in the document. This means that if a class is defined as
+an OWL restriction or equivalent class, Mentor will infer its subclass relationships
+based on the OWL semantics.
+
+### SHACL Features
+The Definitions Tree also recognises SHACL shapes defined in the document. The tree provides
+actions to navigate to shape definitions and displaying datatypes for property shapes.
+
+## Taxonomy
+The tree also supports SKOS terminology, such as concepts, concept schemes and collections. 
+Similar to ontology terms, taxonomy terms are grouped by their source of definition, with 
+an "Unknown" category for any terms that cannot be classified.
