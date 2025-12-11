@@ -7,16 +7,57 @@ hero:
   ]
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, LinkCard } from '@astrojs/starlight/components';
 
 The Definitions Tree provides a hierarchical view of all RDF terms that are defined 
 in the active document. It shows all subjects in the current document which are supported ontology 
 or taxonomy types and enables you to quickly navigate to the definitions or execute commands. 
 
+<img class="screenshot my-3" src="/screenshots/definitions-tree.png" alt="Screenshot of the Definitions Tree in Visual Studio Code" width="550" />
+
+## Tree Display
+The following section describes the various aspects of how the Definitions Tree displays nodes 
+and how to customise it to your needs.
+
+### Node Labels
+The displayed name of nodes in the definition tree is determined by looking for a configurable set of 
+label predicates. This is the default option and referred to as 'Annotated Labels' in the tree view settings.
+
+In this mode, the displayed labels also consider language tags, preferring labels that match the currently 
+set active language which is indicated in the title section of the tree view. The active language can be 
+changed by clicking on the language button in the tree title bar.
+
+The predicates which are used for displaying the node labels can be configured in the [settings](#Settings). By 
+default, Mentor uses the following preferred label predicates in order of priority:
+
+- http://purl.org/dc/terms/title
+- http://purl.org/dc/elements/1.1/title
+- http://www.w3.org/2004/02/skos/core#prefLabel
+- http://www.w3.org/2000/01/rdf-schema#label
+- https://schema.org/name
+- http://schema.org/name
+- http://www.w3.org/ns/shacl#path
+
+If no label can be found, the local name of the IRI is used as a fallback.
+
+You can also choose to always display the local name of the IRI instead of looking for annotated labels, or to
+display prefixed names if a prefix is declared for the namespace of the IRI. These options can be found in the `∙∙∙`
+menu of the tree view.
+
+### Definition Source Grouping
+By default, the defined terms are grouped by the ontology or concept scheme they are part of. This 
+is either determined by sharing a common namespace with an ontology header definition or by explicit 
+`rdfs:isDefinedBy` annotations in the document. If no source of definition can be determined, the 
+terms are grouped under `Unknown`. 
+
+When available, the value of `owl:versionInfo` is also shown to indicate the version of an ontology.
+
+There is also an option to turn-off grouping in the tree settings, which will show all defined terms
+grouped by their type, regardless in which ontology / concept scheme they are defined.
+
 ## Ontology
-The tree features support for common ontology terms such as classes, properties, and 
-individuals. By default, the defined terms are grouped by the ontology they are part of.
-If no ontology information is available, the terms are grouped under "Unknown".
+The tree features support for common ontology types such as classes, properties, and 
+individuals and specialised types from the OWL and SHACL vocabularies.
 
 TODO
 
@@ -42,3 +83,36 @@ an "Unknown" category for any terms that cannot be classified.
 ### SKOS
 
 TODO
+
+## Settings
+The following settings can be used to configure the Definitions Tree:
+
+<LinkCard
+  title="mentor.predicates.label"
+  href="vscode://settings/mentor.predicates.label"
+  description="An array of RDF predicates that are used to determine the labels for nodes in the Definitions Tree.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.predicates.description"
+  href="vscode://settings/mentor.predicates.description"
+  description="An array of RDF predicates that are used to determine the descriptions for nodes in tooltips.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.definitionTree.labelStyle"
+  href="vscode://settings/mentor.definitionTree.labelStyle"
+  description="Controls the display style of labels in the Definitions Tree.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.definitionTree.defaultLayout"
+  href="vscode://settings/mentor.definitionTree.defaultLayout"
+  description="Set the standard style for rendering the definitions tree hierarchy.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.definitionTree.defaultLanguageTag"
+  href="vscode://settings/mentor.definitionTree.defaultLanguageTag"
+  description="Set the default language tag for rendering labels and descriptions in the definitions tree and tooltips.">
+</LinkCard>
