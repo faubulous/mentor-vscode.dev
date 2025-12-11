@@ -2,11 +2,13 @@
 
 html[data-theme="dark"] {
     --mentor-accent-color: #0078d4;
+    --mentor-accent-background: rgba(0, 120, 212, 0.1);
     --sl-color-text-invert: var(--sl-color-white);
 }
 
 html[data-theme="light"] {
     --mentor-accent-color: #005fb8;
+    --mentor-accent-background: rgba(0, 95, 184, 0.1);
     --sl-color-text-invert: var(--sl-color-black);
 }
 
@@ -28,14 +30,17 @@ html[data-theme="light"] {
     }
 
     .screenshot {
-        border: 1px solid var(--sl-color-gray-5);
         border-radius: 0.5rem;
-        box-shadow: var(--sl-shadow-sm);
+        box-shadow: var(--sl-shadow-lg);
     }
 
     .centered {
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .w-100 {
+        width: 100%;
     }
 
     .my-3 {
@@ -58,5 +63,15 @@ html[data-theme="light"] {
     .sl-container {
         max-width: var(--sl-content-width);
         margin-inline: 1rem;
+    }
+
+    .starlight-aside--note {
+        --sl-color-asides-border: var(--mentor-accent-color);
+        background-color: var(--mentor-accent-background);
+    }
+
+    .starlight-aside--note .starlight-aside__title,
+    .starlight-aside--note .starlight-aside__icon {
+        color: var(--mentor-accent-color);
     }
 }

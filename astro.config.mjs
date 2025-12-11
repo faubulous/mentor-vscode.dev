@@ -17,27 +17,28 @@ export default defineConfig({
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/faubulous/mentor-vscode' }],
 			sidebar: [
 				{
-					label: 'Welcome',
-					slug: ''
-				},
-				{
 					label: 'Getting Started',
-					slug: 'guide/getting-started'
+					items: [
+						{
+							label: 'Setup',
+							slug: 'setup'
+						}
+					]
 				},
 				{
 					label: 'Workspace Features',
 					items: [
 						{
 							label: 'Workspace Index',
-							slug: 'guide/workspace/workspace-index'
+							slug: 'features/workspace-index'
 						},
 						{
 							label: 'Workspace Tree',
-							slug: 'guide/workspace/workspace-tree'
+							slug: 'features/workspace-tree'
 						},
 						{
 							label: 'Definitions Tree',
-							slug: 'guide/workspace/definitions-tree'
+							slug: 'features/definitions-tree'
 						}
 					]
 				}

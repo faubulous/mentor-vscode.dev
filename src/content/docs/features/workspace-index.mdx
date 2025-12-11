@@ -1,0 +1,133 @@
+---
+title: Workspace Index
+description: The developer friendly IDE for RDF knowledge graph projects.
+hero:
+  customCss: [
+    './src/assets/styles/mentor.css',
+  ]
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import { LinkCard } from '@astrojs/starlight/components';
+
+Upon opening a workspace, Mentor automatically builds a index of all RDF terms used across the files in your workspace. This index enables features like code lenses and the "Find Usages" and "Go to Definition" commands, allowing you to quickly navigate and explore your knowledge graph project.
+
+The index is kept entirely in memory and will be rebuilt each time you open the workspace. When files have changed, are added or removed the index is updated incrementally to reflect these changes.
+
+In addition to the term maps, Mentor also maintains an in-memory triple store containing all RDF triples found in the workspace. This allows you to run SPARQL queries against all of your files in the workspace directly from within Visual Studio Code.
+## Indexed Data
+Mentor keeps track of the following RDF related data in your workspace:
+
+| Data      | Description |
+| ----------------- | ------------- |
+| **References**  | A mapping of IRIs to the files and line numbers where they are used, either as a subject or an object of a triple. |
+| **Definitions** | A mapping of IRIs to the files and line numbers where they are defined as a subject with an `rdf:type` predicate. |
+| **Prefixes**     | A mapping of prefixes to their corresponding namespace IRIs, along with the files where they are declared. |
+| **Triples**   | An in-memory representation of all RDF triples found in the workspace, allowing for querying the data with SPARQL. |
+
+## Indexing Status
+The indexing process runs in the background and may take a few moments to complete, depending on the size of your workspace. You can monitor the indexing status in the Mentor status bar at the bottom of the Visual Studio Code window:
+
+<img class="screenshot my-3" src="/screenshots/index-status.png" alt="Screenshot of the Indexing status bar in Visual Studio Code" width="600" />
+
+## Generated Graphs
+When indexing RDF files then the contents of all files are stored in an internal in-memory triple store.
+
+### Framework Ontologies
+Mentor automatically loads a set of built-in RDF ontologies into the triple store to provide foundational 
+definitions and relationships for common terminology. These ontologies include:
+
+| Ontology | Graph IRI |
+| ----------------- | ------------- |
+| `rdf` | [http://www.w3.org/1999/02/22-rdf-syntax-ns#](http://www.w3.org/1999/02/22-rdf-syntax-ns#) |
+| `rdfa` | [http://www.w3.org/ns/rdfa#](http://www.w3.org/ns/rdfa#) |
+| `rdfs` | [http://www.w3.org/2000/01/rdf-schema#](http://www.w3.org/2000/01/rdf-schema#) |
+| `owl` | [http://www.w3.org/2002/07/owl#](http://www.w3.org/2002/07/owl#) |
+| `shacl` | [http://www.w3.org/ns/shacl#](http://www.w3.org/ns/shacl#) |
+| `skos` | [http://www.w3.org/2004/02/skos/core#](http://www.w3.org/2004/02/skos/core#) |
+| `skos-xl`| [http://www.w3.org/2008/05/skos-xl#](http://www.w3.org/2008/05/skos-xl#) |
+| `xsd` | [http://www.w3.org/2001/XMLSchema#](http://www.w3.org/2001/XMLSchema#) |
+| `dcat` | [http://www.w3.org/ns/dcat#](http://www.w3.org/ns/dcat#) |
+
+The IRIs of these ontologies are used as named graphs in the triple store. You can query these 
+graphs directly using SPARQL to access the definitions and relationships they provide.
+
+### Documents
+For every RDF document in your workspace, Mentor creates an internal named graph that contains all 
+triples found in that document. The graph IRI is derived from the document's URI in the workspace.
+For example, for a document located at `/documents/example.ttl`, the corresponding graph IRI would be:
+
+```
+workspace:/documents/example.ttl
+```
+
+<Aside type="note">
+The `workspace:` scheme is custom to Mentor and is always resolved relative to the current workspace root. 
+
+It ensures that SPARQL queries are workspace-independent and can refer to documents in the workspace 
+without using absolute file paths that may vary between different systems. This is important to enable
+version control and collaboration on knowledge graph projects.
+
+For this reason the scheme _does not allow for relative paths_ as they could refer to files outside 
+of the workspace.
+</Aside>
+
+The [`file:` IRI scheme](https://en.wikipedia.org/wiki/File_URI_scheme) is not used here because it does not support relative paths and thus cannot
+provide workspace-independent references.
+
+### Inference
+To ensure that trees correctly displays all kinds of classes, such as OWL restrictions or
+equivalent classes, Mentor applies _structural reasoning_ when parsing RDF documents. This 
+means that a reasoning engine infers additional class, subclass relationships and property 
+types based on the OWL and SHACL semantics.
+
+<Aside type="note">
+Structural reasoning applied by Mentor is optimized for performance and does not conform to any
+official OWL profile. It is solely intended to simplify the internal implementation of features such as
+the Definitions Tree. For standards conformant reasoning capabilities, consider using a dedicated OWL reasoner
+such as [OWL-RL](https://owl-rl.readthedocs.io/en/latest/).
+</Aside>
+
+The results of the reasoning process are stored in a separate graph that follows the same
+scheme as the document graph but appends `?inference` to the graph IRI. For example:
+
+```
+workspace:/documents/example.ttl?inference
+```
+
+If the data graph IRI already contains query parameters, then the `inference` parameter is simply 
+appended to the existing ones.
+
+## Memory Usage
+The memory consumption depends on the size of your workspace and the number of RDF terms used. For large workspaces, this may lead to increased memory usage. You can monitor the memory consumption of Mentor in the Visual Studio Code Process Explorer.
+
+<Aside type="tip" class="my-3">
+To open the Process Explorer, go to the Command Palette (`Ctrl+Shift+P`), and type "Process Explorer", then select "Open Process Explorer".
+</Aside>
+
+<Aside type="caution" class="my-3">
+Please be aware that very large workspaces may lead to out-of-memory errors. If you encounter such issues, consider excluding certain files or folders from being indexed using the settings described below.
+</Aside>
+
+## Settings
+To avoid long indexing times or out-of-memory errors in large workspaces, you can configure Mentor to 
+exclude certain files or folders from being indexed. The following settings are available:
+
+<LinkCard
+  title="mentor.index.ignoreFolders"
+  href="vscode://settings/mentor.index.ignoreFolders"
+  description="An array of folder paths relative to the workspace root. Any folders specified in 
+these ignore files will be excluded from the indexing process.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.index.maxFileSize"
+  href="vscode://settings/mentor.index.maxFileSize"
+  description="You can exclude large files from being indexed by setting a maximum file size limit in the Mentor settings. Files exceeding this size which is specified in bytes will be skipped during the indexing process.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.index.useGitIgnore"
+  href="vscode://settings/mentor.index.useGitIgnore"
+  description="Enable or disable the use of .gitignore files for excluding files from the indexing process. When enabled, Mentor will respect the rules defined in your .gitignore files. The default value is true.">
+</LinkCard>

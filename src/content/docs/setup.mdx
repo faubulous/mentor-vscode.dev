@@ -1,0 +1,34 @@
+---
+title: Installing Mentor
+description: The developer friendly IDE for RDF knowledge graph projects.
+hero:
+  customCss: [
+    './src/assets/styles/mentor.css',
+  ]
+---
+
+{/* TODO: We can link to an example repository with a pre-configured workspace? */}
+
+import { Aside } from '@astrojs/starlight/components';
+import { LinkCard } from '@astrojs/starlight/components';
+import { Steps } from '@astrojs/starlight/components';
+
+[Mentor](https://marketplace.visualstudio.com/items?itemName=faubulous.mentor) is an extension for Visual Studio Code. This means that you will need to install [Visual Studio Code](https://code.visualstudio.com), [VSCodium](https://vscodium.com/) or in the browser by going to [vscode.dev](https://vscode.dev).
+
+To get started with Mentor, follow these steps:
+
+<Steps>
+1. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window or by pressing `Ctrl+Shift+X` (Windows, Linux) or `Cmd+Shift+X` (macOS).
+2. Search for "Mentor" and click "Install" to add the extension to your IDE.
+3. Open or Create a Workspace.
+</Steps>
+
+<img class="screenshot my-3" src="/screenshots/extensions.png" alt="Screenshot of the Extensions panel in Visual Studio Code" width="300" />
+
+<div class="my-3">
+  <LinkCard 
+    title="VSCodium"
+    href="https://vscodium.com/"
+    description="VSCodium is a community-driven, freely-licensed binary distribution of Visual Studio Code. It is functionally identical but does not include the telemetry and branding found in the official Microsoft build.">
+  </LinkCard>
+</div>

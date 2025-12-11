@@ -8,98 +8,91 @@ hero:
   ]
   actions:
     - text: Get Started
-      link: /guide/setupd
+      link: /features/setupd
       icon: right-arrow
     - text: User Guide
-      link: /guide/
+      link: /features/
       icon: open-book
       variant: minimal
 ---
 
-import { Card } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
 import { LinkCard } from '@astrojs/starlight/components';
 
-<img src="/screenshots/window.png" alt="Screenshot of Mentor for Visual Studio Code" width="600" />
+<img class="screenshot w-100" src="/screenshots/window.png" alt="Screenshot of Mentor for Visual Studio Code" />
 
 ## News
-<Card icon="rss" title="Version 0.3.6 Released" href="/release-history/" variant="highlighted">
-  We are excited to announce the release of Mentor version 0.3.6! This update brings several new features, improvements, and bug fixes to enhance your experience with Mentor. <a href="/release-history/">Read more about the changes in this release.</a>
-</Card>
+<Aside icon="rss" title="Version 0.3.6">
+We are excited to announce the release of Mentor version 0.3.6! This update brings several new features, 
+improvements, and bug fixes to enhance your experience with Mentor.
+</Aside>
 
 [Release History](/release-history/)
 
 ## Features
-Mentor offers a wide range of features to help you efficiently develop and manage your knowledge management and application projects:
+Mentor offers a wide range of features to help you efficiently develop your projects:
 
 ### Workspace
 
 <LinkCard
   title="Workspace Index"
-  href="/guide/workspace-index/"
+  href="/features/workspace-index/"
   description="Find usages and quickly jump to subject definitions across files in your workspace."
 />
 
 <LinkCard
   title="Workspace Tree"
-  href="/guide/workspace-tree/"
+  href="/features/workspace-tree/"
   description="Navigate and inspect all ontology and SPARQL files in the project to quickly find and identify problems across the workspace."
 />
 
 <LinkCard
   title="Definitions Tree"
-  href="/guide/definitions-tree/"
+  href="/features/definitions-tree/"
   description="Explore and manage the definitions of classes, properties, shapes, and concepts the current document with support for structural OWL reasoning."
-/>
-
-<LinkCard
-  title="Settings"
-  href="/guide/settings/"
-  description="Share Mentor settings across your team by committing workspace settings to your repository."
 />
 
 ### Editor
 
 <LinkCard
   title="Syntax Highlighting & Validation"
-  href="/guide/syntax-highlighting/"
+  href="/features/syntax-highlighting/"
   description="Highlighting and linting of N-Tripeles, N-Quads, Turtle, Trig, RDF/XML and SPARQL syntax."/>
 
 <LinkCard
   title="Prefix Management"
-  href="/guide/prefix-management/"
+  href="/features/prefix-management/"
   description="Auto-implement and manage namespace prefixes in your project."
 />
 
 <LinkCard
   title="Refactoring"
-  href="/guide/refactoring/"
+  href="/features/refactoring/"
   description="Rename prefixes and resource labels, sort and remove unused prefix definitions, and more."
-/>
-
-### Development
-
-<LinkCard
-  title="Notebooks"
-  href="/guide/notebooks/"
-  description="Create and run interactive notebooks combining SPARQL queries, RDF content and Markdown documentation."
 />
 
 <LinkCard
   title="SPARQL Query"
-  href="/guide/sparql/"
+  href="/features/sparql/"
   description="Write and execute SPARQL queries with auto-completion, syntax highlighting, and validation."
+/>
+
+<LinkCard
+  title="Notebooks"
+  href="/features/notebooks/"
+  description="Create and run interactive notebooks combining SPARQL queries, RDF content and Markdown documentation."
 />
 
 ### Collaboration
 
 <LinkCard
   title="Live Collaboration"
-  href="/guide/live-collaboration/"
+  href="/features/live-collaboration/"
   description="Run Mentor in the browser on vscode.dev and edit GitHub repositories online."
 />
 
 <LinkCard
   title="Git Integration"
-  href="/guide/git-integration/"
+  href="/features/git-integration/"
   description="Seamlessly integrate with Git to manage version control and collaborate with your team."
 />
