@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Mentor Icons';
+    src: url('/src/assets/styles/mentor-icons.woff') format('woff');
+}
+
+.mentor-icon {
+    font-family: 'Mentor Icons' !important;
+    display: inline-block;
+}
+
+.mentor-icon::before {
+    content: "";
+    display: inline-block;
+    text-align: center;
+    font-size: 1.5em;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+}
+
+.mentor-icon.rdf-class::before {
+    content: '\e001';
+}
+
+.mentor-icon.rdf-class-i::before {
+    content: '\e002';
+}
+
+.mentor-icon.rdf-individual::before {
+    content: '\e003';
+}

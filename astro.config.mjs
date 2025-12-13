@@ -6,15 +6,20 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Mentor',
+			favicon: './src/assets/images/mentor.svg',
 			logo: {
 				src: './src/assets/images/mentor.svg',
 				alt: 'Mentor Icon',
 			},
-			favicon: './src/assets/images/mentor.svg',
 			customCss: [
 				'./src/assets/styles/mentor.css',
+				'./src/assets/styles/mentor-icons.css'
 			],
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/faubulous/mentor-vscode' }],
+			social: [{
+				icon: 'github',
+				label: 'GitHub',
+				href: 'https://github.com/faubulous/mentor-vscode'
+			}],
 			sidebar: [
 				{
 					label: 'Getting Started',

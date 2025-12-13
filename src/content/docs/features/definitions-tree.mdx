@@ -1,10 +1,6 @@
 ---
 title: Definitions Tree
 description: The developer friendly IDE for RDF knowledge graph projects.
-hero:
-  customCss: [
-    './src/assets/styles/mentor.css',
-  ]
 ---
 
 import { Aside, LinkCard } from '@astrojs/starlight/components';
@@ -30,13 +26,13 @@ changed by clicking on the language button in the tree title bar.
 The predicates which are used for displaying the node labels can be configured in the [settings](#Settings). By 
 default, Mentor uses the following preferred label predicates in order of priority:
 
-- http://purl.org/dc/terms/title
-- http://purl.org/dc/elements/1.1/title
-- http://www.w3.org/2004/02/skos/core#prefLabel
-- http://www.w3.org/2000/01/rdf-schema#label
-- https://schema.org/name
-- http://schema.org/name
-- http://www.w3.org/ns/shacl#path
+1. http://purl.org/dc/terms/title
+1. http://purl.org/dc/elements/1.1/title
+1. http://www.w3.org/2004/02/skos/core#prefLabel
+1. http://www.w3.org/2000/01/rdf-schema#label
+1. https://schema.org/name
+1. http://schema.org/name
+1. http://www.w3.org/ns/shacl#path
 
 If no label can be found, the local name of the IRI is used as a fallback.
 
@@ -59,7 +55,11 @@ grouped by their type, regardless in which ontology / concept scheme they are de
 The tree features support for common ontology types such as classes, properties, and 
 individuals and specialised types from the OWL and SHACL vocabularies.
 
-TODO
+| Icon | Type |
+|------|------| 
+| <span class="mentor-icon rdf-class"></span> | Class |
+| <span class="mentor-icon rdf-class-i"></span> | Class |
+
 
 ### OWL
 To support correct display of subclass relationships, Mentor applies structural reasoning
