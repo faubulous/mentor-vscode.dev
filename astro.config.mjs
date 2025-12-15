@@ -6,14 +6,15 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Mentor',
-			favicon: './src/assets/images/mentor.svg',
+			favicon: 'favicon.svg',
 			logo: {
 				src: './src/assets/images/mentor.svg',
 				alt: 'Mentor Icon',
 			},
 			customCss: [
 				'./src/assets/styles/mentor.css',
-				'./src/assets/styles/mentor-icons.css'
+				'./src/assets/styles/mentor-icons.css',
+				'./src/assets/styles/codicon.css'
 			],
 			social: [{
 				icon: 'github',

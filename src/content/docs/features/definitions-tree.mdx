@@ -6,14 +6,44 @@ description: The developer friendly IDE for RDF knowledge graph projects.
 import { Aside, LinkCard } from '@astrojs/starlight/components';
 
 The Definitions Tree provides a hierarchical view of all RDF terms that are defined 
-in the active document. It shows all subjects in the current document which are supported ontology 
-or taxonomy types and enables you to quickly navigate to the definitions or execute commands. 
+in the active document. It shows all subjects which are supported ontology or taxonomy 
+types and enables you to quickly navigate to their definitions or execute commands on them. 
 
-<img class="screenshot my-3" src="/screenshots/definitions-tree.png" alt="Screenshot of the Definitions Tree in Visual Studio Code" width="550" />
+<img class="screenshot my-3" src="/screenshots/definitions-tree.png" alt="Screenshot of the Definitions Tree in Visual Studio Code" width="600" />
 
-## Tree Display
-The following section describes the various aspects of how the Definitions Tree displays nodes 
-and how to customise it to your needs.
+## Title Bar
+The tree view is titled 'Definitions' and shows the currently active language tag for the displayed node labels. 
+With *definitions* we refer to all RDF resources that are either defined as subjects in the current document 
+or referenced by it and where the resource type was inferenced by the [structural reasoner](/features/workspace-index/#inference).
+
+### Primary Actions
+The definitions tree offers several actions that are visible as icons in the title bar:
+
+<div class="command-table">
+| Action | Description |
+| ----------------- | ------------- |
+| <span class="mentor-icon mentor-select-language icon-inline"></span> *Select Language* | Selects the currently active language for the definitions tree. |
+| <span class="codicon codicon-refresh icon-inline"></span> *Refresh Tree* | Manually refreshes the definitions tree to reflect any recent changes in the files. |
+| <span class="codicon codicon-collapse-all icon-inline"></span> *Collapse / Expand All* | Collapse or Expand all nodes in the definitions tree. |
+</div>
+
+### More Actions
+Additional actions that can be accessed through the <span class="codicon codicon-ellipsis icon-inline"></span> menu in the titlebar:
+
+<div class="command-table">
+| Action | Description |
+| ----------------- | ------------- |
+| *Show / Hide Referenced Resources* | Toggles the visibility of resources that are not defined as subjects in the current document, but are referenced by it. |
+| *Group by Source of Definition* | Toggles if classes, properties etc. should additionally be grouped by their source of definition, e.g. the ontology or taxonomy they are defined in. |
+| *Group by Type* | Toggles if classes, properties etc. should be grouped 'flat' in a single node per type. |
+| *Show Annotated Labels* | Toggles if the tree should display labels that are [annotated with RDF predicates](#node-labels) for each node. |
+| *Show URI Labels* | Toggles if the tree should always display the URI local names for each node. |
+| *Show URI Labels with Prefixes* | Toggles if the tree should display the URI local names with their prefixes for each node, if a prefix is defined. |
+| *Settings* | Opens the Mentor settings where you can configure various options related to the definitions tree and indexing. |
+</div>
+
+## Display Options
+This section describes the details of how nodes are being displayed and how this can be customised:
 
 ### Node Labels
 The displayed name of nodes in the definition tree is determined by looking for a configurable set of 
@@ -21,7 +51,7 @@ label predicates. This is the default option and referred to as 'Annotated Label
 
 In this mode, the displayed labels also consider language tags, preferring labels that match the currently 
 set active language which is indicated in the title section of the tree view. The active language can be 
-changed by clicking on the language button in the tree title bar.
+changed by clicking on the <span class="mentor-icon mentor-select-language icon-inline"></span> button in the tree title bar.
 
 The predicates which are used for displaying the node labels can be configured in the [settings](#Settings). By 
 default, Mentor uses the following preferred label predicates in order of priority:
@@ -32,57 +62,75 @@ default, Mentor uses the following preferred label predicates in order of priori
 1. http://www.w3.org/2000/01/rdf-schema#label
 1. https://schema.org/name
 1. http://schema.org/name
+1. http://www.w3.org/ns/shacl#name
 1. http://www.w3.org/ns/shacl#path
 
 If no label can be found, the local name of the IRI is used as a fallback.
 
 You can also choose to always display the local name of the IRI instead of looking for annotated labels, or to
-display prefixed names if a prefix is declared for the namespace of the IRI. These options can be found in the `∙∙∙`
-menu of the tree view.
+display prefixed names if a prefix is declared for the namespace of the IRI. These options can be found in the
+[<span class="codicon codicon-ellipsis icon-inline"></span> menu](#more-actions) of the tree view.
 
 ### Definition Source Grouping
 By default, the defined terms are grouped by the ontology or concept scheme they are part of. This 
-is either determined by sharing a common namespace with an ontology header definition or by explicit 
-`rdfs:isDefinedBy` annotations in the document. If no source of definition can be determined, the 
+is either determined by a shared namespace with an ontology header definition or by explicit 
+`rdfs:isDefinedBy` annotations in the document. If no source of definition can be found, the 
 terms are grouped under `Unknown`. 
 
 When available, the value of `owl:versionInfo` is also shown to indicate the version of an ontology.
 
 There is also an option to turn-off grouping in the tree settings, which will show all defined terms
-grouped by their type, regardless in which ontology / concept scheme they are defined.
+grouped by their type, regardless in which ontology / concept scheme they are defined. This option is
+called `Group by Type` and can be toggled in the [<span class="codicon codicon-ellipsis icon-inline"></span> menu](#more-actions)
+of the tree view.
 
 ## Ontology
 The tree features support for common ontology types such as classes, properties, and 
 individuals and specialised types from the OWL and SHACL vocabularies.
 
-| Icon | Type |
-|------|------| 
-| <span class="mentor-icon rdf-class"></span> | Class |
-| <span class="mentor-icon rdf-class-i"></span> | Class |
-
-
-### OWL
+### RDFS, OWL
 To support correct display of subclass relationships, Mentor applies structural reasoning
 to the ontology terms defined in the document. This means that if a class is defined as
 an OWL restriction or equivalent class, Mentor will infer its subclass relationships
 based on the OWL semantics.
 
-TODO
+| Icon | Type |
+|------|------|
+| <span class="mentor-icon mentor-rdf-ontology icon-inline"></span> | Ontology |
+| <span class="mentor-icon mentor-rdf-class icon-inline"></span> | Class |
+| <span class="mentor-icon mentor-rdf-class-i icon-inline"></span> | Class with Individuals |
+| <span class="mentor-icon mentor-rdf-individual icon-inline"></span> | Individual |
+| <span class="mentor-icon mentor-rdf-object-property icon-inline"></span> | Object Property |
+| <span class="codicon codicon-calendar icon-inline"></span> | Datatype Property with range<sup>1</sup> of `xsd:datetime` or `xsd:date`  |
+| <span class="codicon codicon-symbol-boolean icon-inline"></span> | Datatype Property with range<sup>1</sup> `xsd:boolean` |
+| <span class="codicon codicon-symbol-number icon-inline"></span> | Datatype Property with range<sup>1</sup> `xsd:integer` or `xsd:decimal` |
+| <span class="codicon codicon-symbol-text icon-inline"></span> | Datatype Property with range<sup>1</sup> `xsd:string` or no explicit range |
+
+<sup>1</sup>*The range is determined either by the `rdfs:range` or the `sh:datatype` predicates.*
 
 ### SHACL
 The Definitions Tree also recognises SHACL shapes defined in the document. The tree provides
 actions to navigate to shape definitions and displaying datatypes for property shapes.
 
-TODO
+| Icon | Type |
+|------|------|
+| <span class="mentor-icon mentor-rdf-shape-node icon-inline"></span> | Node Shape |
+| <span class="mentor-icon mentor-rdf-shape-property icon-inline"></span> | Property Shape |
 
 ## Taxonomy
 The tree also supports SKOS terminology, such as concepts, concept schemes and collections. 
-Similar to ontology terms, taxonomy terms are grouped by their source of definition, with 
-an "Unknown" category for any terms that cannot be classified.
+Similar to ontology terms, taxonomy terms are grouped by their source of definition. If no
+concept scheme is found, the terms are grouped under an `Unknown` category.
 
 ### SKOS
 
-TODO
+
+| Icon | Type |
+|------|------|
+| <span class="mentor-icon mentor-rdf-concept-scheme icon-inline"></span> | Concept Scheme |
+| <span class="mentor-icon mentor-rdf-concept icon-inline"></span> | Concept |
+| <span class="mentor-icon mentor-rdf-collection icon-inline"></span> | Collection |
+| <span class="mentor-icon mentor-rdf-collection-ordered icon-inline"></span> | Ordered Collection |
 
 ## Settings
 The following settings can be used to configure the Definitions Tree:

@@ -1,14 +1,9 @@
 ---
 title: Workspace Index
 description: The developer friendly IDE for RDF knowledge graph projects.
-hero:
-  customCss: [
-    './src/assets/styles/mentor.css',
-  ]
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import { LinkCard } from '@astrojs/starlight/components';
+import { Aside, LinkCard } from '@astrojs/starlight/components';
 
 Upon opening a workspace, Mentor automatically builds a index of all RDF terms used across the files in your workspace. This index enables features like code lenses and the "Find Usages" and "Go to Definition" commands, allowing you to quickly navigate and explore your knowledge graph project.
 
@@ -85,7 +80,9 @@ types based on the OWL and SHACL semantics.
 <Aside type="note">
 Structural reasoning applied by Mentor is optimized for performance and does not conform to any
 official OWL profile. It is solely intended to simplify the internal implementation of features such as
-the Definitions Tree. For standards conformant reasoning capabilities, consider using a dedicated OWL reasoner
+the Definitions Tree.
+
+For standards conformant reasoning, consider using a dedicated OWL reasoner
 such as [OWL-RL](https://owl-rl.readthedocs.io/en/latest/).
 </Aside>
 

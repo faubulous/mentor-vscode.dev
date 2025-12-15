@@ -3,29 +3,99 @@
     src: url('/src/assets/styles/mentor-icons.woff') format('woff');
 }
 
+.icon-inline {
+    background-color: var(--sl-color-bg-inline-code);
+    border-radius: 3px;
+}
+
 .mentor-icon {
     font-family: 'Mentor Icons' !important;
     display: inline-block;
 }
 
-.mentor-icon::before {
-    content: "";
-    display: inline-block;
+.mentor-icon,
+.codicon {
     text-align: center;
-    font-size: 1.5em;
-    width: 1.5em;
-    height: 1.5em;
-    line-height: 1.5em;
+    font-size: 1.3em !important;
+    font-weight: 600 !important;
+    width: 1.3em !important;
+    height: 1.3em !important;
+    line-height: 1.3em !important;
+    vertical-align: middle !important;
 }
 
-.mentor-icon.rdf-class::before {
+.mentor-icon::before {
+    content: "";
+}
+
+.mentor-rdf-class::before {
     content: '\e001';
 }
 
-.mentor-icon.rdf-class-i::before {
+.mentor-rdf-class-i::before {
     content: '\e002';
 }
 
-.mentor-icon.rdf-individual::before {
+.mentor-rdf-individual::before {
     content: '\e003';
+}
+
+.mentor-rdf-concept::before {
+    content: '\e004';
+}
+
+.mentor-rdf-concept-scheme::before {
+    content: '\e005';
+}
+
+.mentor-rdf-ontology::before {
+    content: '\e006';
+}
+
+.mentor-rdf-list::before {
+    content: '\e007';
+}
+
+.mentor-rdf-tree::before {
+    content: '\e008';
+}
+
+.mentor-rdf-collection::before {
+    content: '\e009';
+}
+
+.mentor-rdf-collection-ordered::before {
+    content: '\e00a';
+}
+
+.mentor-rdf-object-property::before {
+    content: '\e00b';
+}
+
+.mentor-rdf-shape-node::before {
+    content: '\e00c';
+}
+
+.mentor-rdf-shape-property::before {
+    content: '\e00d';
+}
+
+.mentor-go-to-shape::before {
+    content: '\e00e';
+}
+
+.mentor-select-language::before {
+    content: '\e00f';
+}
+
+.mentor-rdf-file::before {
+    content: '\e010';
+}
+
+.mentor-sparql-file::before {
+    content: '\e011';
+}
+
+.mentor-mentor-notebook::before {
+    content: '\e012';
 }

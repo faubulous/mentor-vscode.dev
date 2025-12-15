@@ -60,6 +60,10 @@ html[data-theme="light"] {
         padding-bottom: 2rem;
     }
 
+    .command-table :is(th:first-child, td:first-child):not(:where(.not-content *)) {
+        min-width: 30ch;
+    }
+
     .sl-container {
         max-width: var(--sl-content-width);
         margin-inline: 1rem;
