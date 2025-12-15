@@ -6,7 +6,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Mentor',
-			favicon: 'favicon.svg',
+			favicon: '/public/favicon.svg',
 			logo: {
 				src: './src/assets/images/mentor.svg',
 				alt: 'Mentor Icon',
@@ -45,6 +45,35 @@ export default defineConfig({
 						{
 							label: 'Definitions Tree',
 							slug: 'features/definitions-tree'
+						},
+						{
+							label: 'SPARQL Connections',
+							slug: 'features/sparql-connections'
+						}
+					]
+				},
+				{
+					label: 'Editor Features',
+					items: [
+						{
+							label: 'Syntax Highlighting',
+							slug: 'features/syntax-highlighting'
+						},
+						{
+							label: 'Prefix Management',
+							slug: 'features/prefix-management'
+						},
+						{
+							label: 'Refactoring',
+							slug: 'features/refactoring'
+						},
+						{
+							label: 'SPARQL Query',
+							slug: 'features/sparql-query'
+						},
+						{
+							label: 'Notebooks',
+							slug: 'features/notebooks'
 						}
 					]
 				}

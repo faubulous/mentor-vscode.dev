@@ -16,10 +16,10 @@ Mentor keeps track of the following RDF related data in your workspace:
 
 | Data      | Description |
 | ----------------- | ------------- |
-| **References**  | A mapping of IRIs to the files and line numbers where they are used, either as a subject or an object of a triple. |
-| **Definitions** | A mapping of IRIs to the files and line numbers where they are defined as a subject with an `rdf:type` predicate. |
-| **Prefixes**     | A mapping of prefixes to their corresponding namespace IRIs, along with the files where they are declared. |
-| **Triples**   | An in-memory representation of all RDF triples found in the workspace, allowing for querying the data with SPARQL. |
+| *References*  | A mapping of IRIs to the files and line numbers where they are used, either as a subject or an object of a triple. |
+| *Definitions* | A mapping of IRIs to the files and line numbers where they are defined as a subject with an `rdf:type` predicate. |
+| *Prefixes*     | A mapping of prefixes to their corresponding namespace IRIs, along with the files where they are declared. |
+| *Triples*   | An in-memory representation of all RDF triples found in the workspace, allowing for querying the data with SPARQL. |
 
 ## Indexing Status
 The indexing process runs in the background and may take a few moments to complete, depending on the size of your workspace. You can monitor the indexing status in the Mentor status bar at the bottom of the Visual Studio Code window:

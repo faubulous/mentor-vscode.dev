@@ -60,7 +60,15 @@ html[data-theme="light"] {
         padding-bottom: 2rem;
     }
 
-    .command-table :is(th:first-child, td:first-child):not(:where(.not-content *)) {
+    .table-10ch :is(th:first-child, td:first-child):not(:where(.not-content *)) {
+        min-width: 10ch;
+    }
+
+    .table-20ch :is(th:first-child, td:first-child):not(:where(.not-content *)) {
+        min-width: 20ch;
+    }
+
+    .table-30ch :is(th:first-child, td:first-child):not(:where(.not-content *)) {
         min-width: 30ch;
     }
 

@@ -1,0 +1,66 @@
+---
+title: Prefix Management
+description: The developer friendly IDE for RDF knowledge graph projects.
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+One of the less convenient features of working with RDF data is the management of prefixes and namespaces. While
+this feature enables the global disambiguation of terms, looking up prefixes and their associated URIs can be a
+tedious but constantly repeating task. To save you time and effort, Mentor simplifies this process by automating 
+prefix declaration and management where possible.
+
+## Automatic Prefix Declaration
+When you type a new prefix in an RDF document, Mentor will automatically implement the prefix declaration for you 
+as soon as you insert a colon `:` character. 
+
+To determine which URI should be assigned to the prefix, Mentor consults the
+[Workspace Index](/features/workspace-index) to look for existing prefix mappings in other documents. Preferring 
+existing mappings over others will help you to keep the prefix definitions consistent across your project. Please
+keep in mind that you should not redefine commonly used prefixes to avoid misunderstandings.
+
+The preference of prefix lookups is as follows:
+
+1. Mapping defined in the settings: `mentor.namespaces`
+1. Existing prefix mappings in the Workspace Index
+1. Community-contributed prefixes from the prefix.cc database
+
+### prefix.cc Integration
+If you start a new project, then you will not have any existing prefix mappings. To help you get started Mentor 
+includes a copy of the [prefix.cc](https://prefix.cc/) database. This database contains thousands of 
+community-contributed RDF prefixes and their corresponding URIs and puts those definitions at your fingertips.
+
+Providing the copy of the prefix.cc database allows Mentor to instantly lookup relevant prefix suggestions 
+without the need for an internet connection and without causing lookup requests. However, this local database may 
+not always have the most up-to-date information. 
+
+To update the internal database, you can trigger a manual refresh
+by using the command palette (`Ctrl` + `Shift` + `P`) and selecting the `Update prefix definitions from prefix.cc` 
+option.
+
+## Quick Fixes
+Mentor also provides editor features to help you organise and clean up existing prefix definitions in documents:
+
+- `Remove Unused Prefixes`: Removes all prefix declarations that are not used anywhere in the document.
+- `Sort Prefix Declarations`: Sorts all prefix declarations in the active document according to the Mentor settings.
+
+## Settings
+The following settings can be used to configure the behaviour of the prefix management features:
+
+<LinkCard
+  title="mentor.namespaces"
+  href="vscode://settings/mentor.namespaces"
+  description="A map of RDF namespaces to their prefixes to look up prefix mappings in favour of prefix.cc">
+</LinkCard>
+
+<LinkCard
+  title="mentor.prefixes.autoDefinePrefixes"
+  href="vscode://settings/mentor.prefixes.autoDefinePrefixes"
+  description="Enables / Disables the automatic definition of prefixes entirely.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.prefixes.prefixDefinitionMode"
+  href="vscode://settings/mentor.prefixes.prefixDefinitionMode"
+  description="Controls in which order the prefixes should be defined in the document (sorted / append).">
+</LinkCard>
