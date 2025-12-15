@@ -6,7 +6,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Mentor',
-			favicon: '/public/favicon.svg',
+			favicon: '/favicon.svg',
 			logo: {
 				src: './src/assets/images/mentor.svg',
 				alt: 'Mentor Icon',
