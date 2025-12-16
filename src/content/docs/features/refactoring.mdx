@@ -3,4 +3,41 @@ title: Refactoring
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
-TODO
+Refactoring refers to changing the structure of existing code without altering its functionality. 
+It is a common process in software development. Therefore, Mentor provides features to assist 
+you in refactoring RDF data and queries and make working with RDF feel more intuitive.
+
+## Rename Local Names
+In URIs the local name is the part that is different from the namespace, usually appearing after 
+the last slash (/) or hash (#). For example, in the IRI `http://example.org/ns#localName`, the local 
+name is `localName`.
+
+<video class="screenshot my-3" width="500" controls autoplay muted>
+ <source src="/screenshots/refactor-local-part.mp4" type="video/mp4"/>
+</video>
+
+To rename the local name of a URI in the document you can simply place the cursor on it and use the 
+rename symbol command (F2) to edit it like you would rename variables in other programming languages. 
+Mentor will automatically update all occurrences of the local name throughout the document in both 
+prefixed and unprefixed forms.
+
+## Rename Prefixes
+Prefixes are used to shorten URIs and make them more readable. For example, instead of writing
+`http://example.org/ns#localName`, you can declare a prefix like `ex` and use `ex:localName` instead.
+
+<video class="screenshot my-3" width="500" controls autoplay muted>
+ <source src="/screenshots/refactor-prefix.mp4" type="video/mp4"/>
+</video>
+
+Renaming existing prefixes is another common refactoring task. You can select the prefix you want to 
+change and use the rename symbol command (F2) to edit it. Mentor will automatically update all 
+occurrences of the prefix throughout the document.
+
+## Extract Prefixes
+Mentor provides a quick way to extract the namespace portion of URIs and declare a prefix for it. When
+your cursor is placed on a URI, you can use the command palette to add a new prefix declaration, and 
+Mentor will automatically change all occurrences of the full URI to a prefixed name throughout the document.
+
+<video class="screenshot my-3" width="500" controls autoplay muted>
+ <source src="/screenshots/extract-prefix.mp4" type="video/mp4"/>
+</video>

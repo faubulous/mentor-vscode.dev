@@ -42,7 +42,7 @@ Additional actions that can be accessed through the <span class="codicon codicon
 | *Settings* | Opens the Mentor settings where you can configure various options related to the definitions tree and indexing. |
 </div>
 
-## Display Options
+## Tree Display
 This section describes the details of how nodes are being displayed and how this can be customised:
 
 ### Node Labels
@@ -83,6 +83,16 @@ There is also an option to turn-off grouping in the tree settings, which will sh
 grouped by their type, regardless in which ontology / concept scheme they are defined. This option is
 called `Group by Type` and can be toggled in the [<span class="codicon codicon-ellipsis icon-inline"></span> menu](#more-actions)
 of the tree view.
+
+### Referenced Resources
+It is quite common for ontologies or vocabularies to reference terms which are defined elsewhere, such 
+as external ontologies such as RDF, RDFS or OWL. To be able to see which terms are actually defined in the document,
+Mentor renders the referenced terms in a shaded color to distinguish them from locally defined terms.
+
+<img class="screenshot my-3" src="/screenshots/referenced-resources.png" alt="Screenshot of referenced resources in the Definitions Tree" width="500" />
+
+The greyed out items in the above screenshot are not defined in the current document, which means there
+is no `rdf:type` statement with the respective subject.
 
 ## Ontology
 The tree features support for common ontology types such as classes, properties, and 

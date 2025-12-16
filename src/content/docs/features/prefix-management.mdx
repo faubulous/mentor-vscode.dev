@@ -3,16 +3,20 @@ title: Prefix Management
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
-import { LinkCard } from '@astrojs/starlight/components';
+import { Aside, LinkCard } from '@astrojs/starlight/components';
 
 One of the less convenient features of working with RDF data is the management of prefixes and namespaces. While
-this feature enables the global disambiguation of terms, looking up prefixes and their associated URIs can be a
-tedious but constantly repeating task. To save you time and effort, Mentor simplifies this process by automating 
+this feature enables the global disambiguation and alignment of terminology, looking up prefixes and their associated URIs is a
+tedious and constantly repeating task. To save you time and effort, Mentor simplifies this process by automating 
 prefix declaration and management where possible.
 
 ## Automatic Prefix Declaration
 When you type a new prefix in an RDF document, Mentor will automatically implement the prefix declaration for you 
 as soon as you insert a colon `:` character. 
+
+<video class="screenshot my-3" width="500" controls autoplay muted>
+ <source src="/screenshots/auto-implement-prefixes.mp4" type="video/mp4"/>
+</video>
 
 To determine which URI should be assigned to the prefix, Mentor consults the
 [Workspace Index](/features/workspace-index) to look for existing prefix mappings in other documents. Preferring 
@@ -30,6 +34,7 @@ If you start a new project, then you will not have any existing prefix mappings.
 includes a copy of the [prefix.cc](https://prefix.cc/) database. This database contains thousands of 
 community-contributed RDF prefixes and their corresponding URIs and puts those definitions at your fingertips.
 
+<Aside type="tip">
 Providing the copy of the prefix.cc database allows Mentor to instantly lookup relevant prefix suggestions 
 without the need for an internet connection and without causing lookup requests. However, this local database may 
 not always have the most up-to-date information. 
@@ -37,12 +42,16 @@ not always have the most up-to-date information.
 To update the internal database, you can trigger a manual refresh
 by using the command palette (`Ctrl` + `Shift` + `P`) and selecting the `Update prefix definitions from prefix.cc` 
 option.
+</Aside>
 
 ## Quick Fixes
 Mentor also provides editor features to help you organise and clean up existing prefix definitions in documents:
 
-- `Remove Unused Prefixes`: Removes all prefix declarations that are not used anywhere in the document.
-- `Sort Prefix Declarations`: Sorts all prefix declarations in the active document according to the Mentor settings.
+<img class="screenshot my-3" src="/screenshots/prefix-quick-fixes.png" alt="Options for managing prefix declarations in a Turtle file" width="600"/>
+
+- `Implement missing prefixes`: Implements all undeclared prefixes that are used in the document.
+- `Remove unused prefixes`: Removes all prefix declarations that are not used anywhere in the document. Unused prefix declarations are slightly shaded to indicate that they can be removed.
+- `Sort prefixes`: Sorts all prefix declarations in the document according to the Mentor settings.
 
 ## Settings
 The following settings can be used to configure the behaviour of the prefix management features:

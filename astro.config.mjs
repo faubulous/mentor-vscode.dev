@@ -47,8 +47,8 @@ export default defineConfig({
 							slug: 'features/definitions-tree'
 						},
 						{
-							label: 'SPARQL Connections',
-							slug: 'features/sparql-connections'
+							label: 'Connections Tree',
+							slug: 'features/connections-tree'
 						}
 					]
 				},

@@ -1,15 +1,22 @@
 @layer starlight, nexus;
 
 html[data-theme="dark"] {
-    --mentor-accent-color: #0078d4;
+    --mentor-accent-color: #209de3;
     --mentor-accent-background: rgba(0, 120, 212, 0.1);
     --sl-color-text-invert: var(--sl-color-white);
+    --sl-color-black: #181818;
+    --sl-color-bg: #181818;
+    --sl-color-bg-nav: #1f1f1f;
+    --sl-color-bg-sidebar: var(--sl-color-bg-nav);
+    --sl-color-hairline-shade: #2b2b2b;
+    --sl-color-hairline: #2b2b2b;
 }
 
 html[data-theme="light"] {
     --mentor-accent-color: #005fb8;
     --mentor-accent-background: rgba(0, 95, 184, 0.1);
     --sl-color-text-invert: var(--sl-color-black);
+    --sl-color-bg-sidebar: var(--sl-color-bg-nav);
 }
 
 :root {
