@@ -59,6 +59,12 @@ The following authentication methods are supported for SPARQL connections:
 | **Bearer Token** | Authentication using a bearer token. |
 | **Microsoft Entra** | Authentication using Microsoft Entra ID provider that is built into Visual Studio Code. |
 
+<Aside type="note" title="Security">
+The credentials for SPARQL connections are stored securely in the Visual Studio Code credential store. This means that your sensitive information, such as usernames and passwords, are not stored in plain text and are protected by the operating system's security features.
+
+They are never stored in the workspace or in any project files and thus cannot be shared with others.
+</Aside>
+
 ## Testing Connections
 Once you have configured a connection, you can test it to ensure that it is working correctly. To test a connection, follow these steps:
 
