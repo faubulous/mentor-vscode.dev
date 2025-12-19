@@ -1,0 +1,41 @@
+---
+title: Getting Started
+description: The developer friendly IDE for RDF knowledge graph projects.
+---
+
+{/* TODO: Link to an example repository with a pre-configured workspace? */}
+
+import { Aside, LinkCard, Steps } from '@astrojs/starlight/components';
+
+[Mentor](https://marketplace.visualstudio.com/items?itemName=faubulous.mentor) is an extension for 
+Visual Studio Code, which is an open source integrated development environment (IDE) developed by Microsoft. 
+The super power of VS Code is its extensibility through its vast ecosystem of extensions, which allow 
+3rd party developers to add new features and functionality to the IDE. At this time, the 
+[Marketplace](https://marketplace.visualstudio.com/vscode) has thousands of extensions available for 
+various programming languages and tasks.
+
+## Setup
+To get started with Mentor, follow these steps:
+
+<Steps>
+1. Install [Visual Studio Code](https://code.visualstudio.com), [VSCodium](https://vscodium.com/) or in the browser by going to [vscode.dev](https://vscode.dev)
+1. Go to the Extensions view by clicking on the Extensions icon in the Activity Bar on the side of the window or by pressing `Ctrl+Shift+X` (Windows, Linux) or `Cmd+Shift+X` (macOS)
+2. Search for "Mentor" and click "Install" to add the extension to your IDE.
+3. Open or Create a Workspace
+</Steps>
+
+<img class="screenshot my-3" src="/screenshots/extensions.png" alt="Screenshot of the Extensions panel in Visual Studio Code" width="300" />
+
+## Telemetry
+Visual Studio Code collects usage data and sends it to Microsoft to help improve the product while Mentor does not collect any personal data or usage information. You can disable the VS Code telemetry entirely in the settings or use VSCodium as a privacy-respecting alternative.
+<LinkCard
+  title="telemetry.telemetryLevel"
+  href="vscode://settings/telemetry.telemetryLevel"
+  description="Global setting for controlling the level of telemetry data sent to Microsoft.">
+</LinkCard>
+
+<LinkCard 
+  title="VSCodium"
+  href="https://vscodium.com/"
+  description="VSCodium is a community-driven, freely-licensed binary distribution of Visual Studio Code. It is functionally identical but does not include the telemetry and branding found in the official Microsoft build.">
+</LinkCard>

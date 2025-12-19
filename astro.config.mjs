@@ -23,11 +23,19 @@ export default defineConfig({
 			}],
 			sidebar: [
 				{
-					label: 'Getting Started',
+					label: 'About',
 					items: [
 						{
-							label: 'Setup',
-							slug: 'setup'
+							label: 'Getting Started',
+							slug: 'about/getting-started'
+						},
+						{
+							label: 'Release History',
+							slug: 'about/release-history'
+						},
+						{
+							label: 'Contributing',
+							slug: 'about/contributing'
 						}
 					]
 				},
@@ -58,6 +66,10 @@ export default defineConfig({
 						{
 							label: 'Syntax Highlighting',
 							slug: 'features/syntax-highlighting'
+						},
+						{
+							label: 'Auto Complete',
+							slug: 'features/auto-complete'
 						},
 						{
 							label: 'Prefix Management',

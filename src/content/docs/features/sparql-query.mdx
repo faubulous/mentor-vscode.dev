@@ -3,4 +3,134 @@ title: SPARQL Query
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
-TODO
+import { Aside, LinkCard } from '@astrojs/starlight/components';
+
+[SPARQL](https://www.w3.org/TR/sparql11-query/) is the [W3C](https://www.w3.org/) standard query language for RDF data,
+that is easily readable and familiar for SQL developers. It allows for querying and manipulating RDF graphs, making it 
+a powerful tool for working with linked data.
+
+Mentor supports you in formulating SPARQL queries through [auto-complete](/features/auto-complete) suggestions that come from the ontologies
+in your workspace and also allows you to execute these queries against datasets in SPARQL endpoints, including the internal
+[Workspace Index](/features/workspace-index) which effectively turns your workspace into an editable RDF graph.
+
+There are two main ways to execute SPARQL queries in Mentor, you can either execute queries from
+
+1. **SPARQL Documents**: You can write and execute SPARQL queries directly in the editor.
+2. **Notebook Cells**: You can also execute SPARQL queries from Mentor notebook cells.
+
+Both methods are fundamentally similar and only differ in where the query results are displayed. The fundamentals of
+SPARQL query executing is covered in this document whereas the specifics of executing queries in notebook cells will be covered in the [Notebooks](/features/notebooks) section.
+
+## Executing SPARQL Documents
+You can directly execute SPARQL files from the editor. For this you either need to open an existing `.sparql` or `.rq` file or create a new one and select `SPARQL` as the language.
+
+### Select Connection
+In Mentor SPARQL queries are by default executed against the internal [Workspace triple store](/features/workspace-index). This provides
+you with the ability to instantly query all the data in your workspace without any additional configuration. If you want
+to query external SPARQL connections, you can configure additional SPARQL endpoints in the [connection settings](/features/connection-tree).
+
+<video class="screenshot my-3" width="500" controls autoplay muted>
+ <source src="/screenshots/select-sparql-connection.mp4" type="video/mp4"/>
+</video>
+
+The SPARQL endpoint the query will be executed against is displayed as a [Code Lens](https://vscode.rocks/codelens/) on the top of the document.
+By default this will display the internal Workspace triple store, indicated by `workspace:`. To select another connection, just click on the Code Lens
+and choose the desired connection from the dropdown.
+
+### Execute Query
+You can execute the query by clicking the "Run Query" button in the editor toolbar or by using the keyboard 
+shortcut `Ctrl+Super` (Windows/Linux) or `Cmd+Super` (Mac).
+
+<video class="screenshot my-3" width="800" controls autoplay muted>
+ <source src="/screenshots/sparql-query-execute.mp4" type="video/mp4"/>
+</video>
+
+The query status and results will then be displayed in the [SPARQL Output Panel](#sparql-output-panel).
+
+<Aside type="note" title="Ontology Graphs">
+As mentioned in the [Workspace Index](/features/workspace-index/#framework-ontologies) document, Mentor automatically loads common
+RDF framework ontologies into named graphs. A feature of the [Bindings Table](#bindings-table) is that it displays IRIs with the prefixes that are either defined in the
+SPARQL query or in the Mentor index. 
+
+This means that when querying the internal Mentor graphs, you will see results like `rdf:`, `rdfs:` or `owl:` instead 
+of the full graph IRIs.
+</Aside>
+
+### SPARQL Output Panel
+
+The SPARQL Output Panel is a dedicated area in the terminal panel of Visual Studio Code. It provides an overview of
+your recently executed queries and a history of all executed SPARQL queries, either queries executed from SPARQL 
+documents or notebook cells.
+
+<img class="screenshot my-3" src="/screenshots/sparql-output-panel.png" alt="Screenshot of the SPARQL Output Panel in Visual Studio Code" width="800" />
+
+<div class="table-20ch">
+| Action | Description |
+| ------- | ----------- |
+| <span class="codicon codicon-new-file"></span> *New Query* | Create a new SPARQL query document with the default template. | 
+| <span class="codicon codicon-folder-opened"></span> *Open Query* | Opens a searchable pop-up menu that lists all available SPARQL query documents in the workspace. |
+| <span class="codicon codicon-placeholder icon-placeholder"></span> *Clear* | Clears the query history in the output panel. |
+| <span class="codicon codicon-play"></span> *Execute Query* | Executes the selected SPARQL query document. |
+| <span class="codicon codicon-close"></span> *Remove Query* | Removes the selected SPARQL query document from the query history. |
+| <span class="codicon codicon-screen-full"></span> *Maximise Panel* | Toggles the full-screen mode of the panel. |
+</div>
+
+## Result Views
+For every executed SPARQL query, the results are shown in dedicated tabs so you can have multiple result views open at the same time and compare the results. Depending 
+on the type of query, the results are displayed in different views. These are explained below.
+
+### Bindings
+For [SPARQL Select](https://www.w3.org/TR/sparql11-query/#select) queries, the results are returned as a set of variable bindings. 
+Each binding is a mapping from a variable name to a value, and the result is typically displayed as a table.
+
+<img class="screenshot" src="/screenshots/sparql-result-bindings.png" alt="Screenshot of SPARQL Select results" width="800" />
+
+TODO: Commands
+
+<img class="screenshot" src="/screenshots/sparql-result-bindings2.png" alt="Screenshot of SPARQL Select results" width="800" />
+
+TODO: Commands
+
+<Aside type="tip" title="IRI Links">
+In the bindings table, when you click on an IRI link, it will issue a describe query for that IRI. This allows you to quickly explore 
+the details of the resource represented by the IRI. If you want to open the URL link instead, you can click on the <span class="codicon codicon-link-external"></span> icon.
+</Aside>
+
+### Boolean
+For [SPARQL Ask](https://www.w3.org/TR/sparql11-query/#ask) queries, the result is a single boolean value 
+indicating whether the query pattern was matched:
+
+<img class="screenshot my-3" src="/screenshots/sparql-result-boolean-true.png" alt="Screenshot of a SPARQL Ask query result showing true" width="800" />
+<img class="screenshot my-3" src="/screenshots/sparql-result-boolean-false.png" alt="Screenshot of a SPARQL Ask query result showing false" width="800" />
+
+### Graph
+For [SPARQL Construct](https://www.w3.org/TR/sparql11-query/#construct) or [SPARQL Describe](https://www.w3.org/TR/sparql11-query/#describe) queries, the result is a set of 
+RDF graphs that represent the data matching the query pattern. 
+
+<Aside type="note" title="Output Locations">
+Because the results of these queries are RDF documents, the output is not displayed in the output panel. 
+Depending on the execution context, the output in Turtle format is displayed in the following locations:
+
+| Query Source | Output Location |
+| ------------ | --------------- |
+| *SPARQL Document* | New editor document |
+| *Notebook Cell* | Cell output area |
+</Aside>
+
+<Aside type="tip" title="Tip">
+The results of SPARQL Construct and Describe queries are RDF documents and can be explored using the 
+[Definitions Tree](/features/definitions-tree).
+</Aside>
+
+### Success / Failure
+For [SPARQL Update](https://www.w3.org/TR/sparql11-update/) queries, the result is a success message 
+indicating that the update was applied.
+
+## Settings
+The following settings can be used to configure the behaviour of the SPARQL query feature:
+
+<LinkCard
+  title="mentor.language.sparql.defaultDocumentTemplate"
+  href="vscode://settings/mentor.language.sparql.defaultDocumentTemplate"
+  description="Controls the document template for new SPARQL files.">
+</LinkCard>

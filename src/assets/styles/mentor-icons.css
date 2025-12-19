@@ -8,6 +8,10 @@
     border-radius: 3px;
 }
 
+.icon-placeholder {
+    visibility: hidden;
+}
+
 .mentor-icon {
     font-family: 'Mentor Icons' !important;
     display: inline-block;
