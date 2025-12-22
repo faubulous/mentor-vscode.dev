@@ -36,6 +36,10 @@ html[data-theme="light"] {
         background-color: transparent;
     }
 
+    h1 {
+        font-size: 3.3em;
+    }
+
     .screenshot {
         border: 2px solid var(--sl-color-hairline-shade);
         border-radius: 0.5rem;
