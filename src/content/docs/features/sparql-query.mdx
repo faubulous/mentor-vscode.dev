@@ -83,15 +83,60 @@ on the type of query, the results are displayed in different views. These are ex
 For [SPARQL Select](https://www.w3.org/TR/sparql11-query/#select) queries, the results are returned as a set of variable bindings. 
 Each binding is a mapping from a variable name to a value, and the result is typically displayed as a table.
 
+<img class="screenshot" src="/screenshots/sparql-result-bindings-toolbar.png" alt="Screenshot of the bindings table toolbar" width="800" />
+
+#### Toolbar
+Above the table there is a toolbar which provides you with basic controls and information about the query execution, such as the execution time and the number of results.
+
+<div class="table-20ch">
+| Item | Description |
+| ------- | ----------- |
+| 1.23s | Execution time of the query from sending the query to receiving the response. This usually differs from the time to render as this does not include post-processing steps. |
+| <span class="codicon codicon-refresh"></span> *Refresh* | Re-executes the current query and updates the results. |
+| <span class="codicon codicon-chevron-left"></span> *Previous Page* | Navigates to the previous page of results. |
+| <span class="codicon codicon-chevron-right"></span> *Next Page* | Navigates to the next page of results. |
+| 1-100 of 123 rows | Displays the visiable range and the total number of results. |
+| CSV | Exports the current query results as a CSV file and opens it in a new editor. |
+</div>
+
+#### Table Header
+The table header displays the variable names returned by the query, in the order they were defined. If the select clause contains a wildcard, then the order of the variables depend on the order
+in the response and can differ depending on the triple store.
+
 <img class="screenshot" src="/screenshots/sparql-result-bindings.png" alt="Screenshot of SPARQL Select results" width="800" />
 
-TODO: Commands
+The table header cells do provide addtional commands when they are hovered:
+
+<div class="table-20ch">
+| Item | Description |
+| ------- | ----------- |
+| <span class="codicon codicon-placeholder icon-placeholder"></span> **varname** | Variable name as declared in the SPARQL query. |
+| <span class="codicon codicon-copy"></span> *Copy Column Values* | Copies the values of the column from the *entire result set* to the clipboard. |
+</div>
+
+#### Table Body
+The table body displays the actual variable bindings returned by the query. Each row corresponds to a single result, with the values for each variable displayed in the appropriate column.
+To help identifying specific rows, the first column always contains the row number, starting from 1:
 
 <img class="screenshot" src="/screenshots/sparql-result-bindings2.png" alt="Screenshot of SPARQL Select results" width="800" />
 
-TODO: Commands
+The table body cells do provide addtional commands when they are hovered:
 
-<Aside type="tip" title="IRI Links">
+<div class="table-20ch">
+| Item | Description |
+| ------- | ----------- |
+| <span class="codicon codicon-placeholder icon-placeholder"></span> `value` | The cell value. |
+| <span class="codicon codicon-link-external"></span> *Open in Browser* | Opens the IRI in the default web browser. |
+| <span class="codicon codicon-copy"></span> *Copy Cell Value* | Copies the cell value to the clipboard. |
+</div>
+
+An important thing to mention is that IRI links in the bindings table do not directly open the URL in the browser when clicked. Instead, clicking on an IRI 
+link will issue a describe query for that IRI. This is due to the fact that it is common practice, that the IRIs do not resolve to actual web resources, but rather serve as 
+identifiers within the RDF graph.
+
+By issuing a describe query, Mentor allows you to quickly explore the details of the resource represented by the IRI in the context of your workspace.
+
+<Aside type="tip" title="Default Action for IRI Links">
 In the bindings table, when you click on an IRI link, it will issue a describe query for that IRI. This allows you to quickly explore 
 the details of the resource represented by the IRI. If you want to open the URL link instead, you can click on the <span class="codicon codicon-link-external"></span> icon.
 </Aside>
@@ -100,8 +145,10 @@ the details of the resource represented by the IRI. If you want to open the URL 
 For [SPARQL Ask](https://www.w3.org/TR/sparql11-query/#ask) queries, the result is a single boolean value 
 indicating whether the query pattern was matched:
 
-<img class="screenshot my-3" src="/screenshots/sparql-result-boolean-true.png" alt="Screenshot of a SPARQL Ask query result showing true" width="800" />
-<img class="screenshot my-3" src="/screenshots/sparql-result-boolean-false.png" alt="Screenshot of a SPARQL Ask query result showing false" width="800" />
+<img class="screenshot my-3" src="/screenshots/sparql-result-boolean-true.png" alt="Screenshot of a SPARQL Ask query result showing true" width="600" />
+<img class="screenshot my-3" src="/screenshots/sparql-result-boolean-false.png" alt="Screenshot of a SPARQL Ask query result showing false" width="600" />
+
+The view only contains the basic query execution information and does not provide any additional features.
 
 ### Graph
 For [SPARQL Construct](https://www.w3.org/TR/sparql11-query/#construct) or [SPARQL Describe](https://www.w3.org/TR/sparql11-query/#describe) queries, the result is a set of 

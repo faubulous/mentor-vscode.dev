@@ -37,8 +37,9 @@ html[data-theme="light"] {
     }
 
     .screenshot {
+        border: 2px solid var(--sl-color-hairline-shade);
         border-radius: 0.5rem;
-        box-shadow: var(--sl-shadow-lg);
+        box-shadow: var(--sl-shadow-md);
     }
 
     .centered {
