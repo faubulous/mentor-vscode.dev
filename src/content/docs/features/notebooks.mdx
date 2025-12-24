@@ -3,4 +3,69 @@ title: Notebooks
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
-TODO
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Mentor supports interactive notebooks that allow you to combine executable SPARQL queries, 
+RDF data snippets and Markdown content for data science, query development and learning RDF.
+Mentor notebooks have the file extension `.mnb`.
+
+<Aside type="note" title="Zero Setup Query">
+What makes Mentor notebooks unique is a zero-setup approach: the 
+[Workspace Index](/features/workspace-index) provides you a triple store at 
+your fingertips without the need for any configuration. The data in this triple store can
+be version-controlled, shared and published with ease using Git repositories.
+</Aside>
+
+## Creating Notebooks
+
+There are multiple ways to create notebooks in Mentor:
+
+### From the Mentor View
+<Steps title="From the Mentor View">
+1. Select the <span class="mentor-icon mentor icon-inline"></span> Mentor icon in the sidebar.
+1. Click on the <span class="codicon codicon-new-file icon-inline"></span> button in the tree view header of the [Workspace Tree](/features/workspace-tree).
+1. Select "Mentor Notebook" from the list.
+</Steps>
+
+### From the Editor
+<Steps title="From the Command Palette">
+1. Open a SPARQL or RDF data file in the editor
+1. Click on the <span class="codicon codicon-notebook icon-inline"></span> icon in the upper right corner of the editor
+</Steps>
+
+### From the Command Palette
+<Steps title="From the Command Palette">
+1. Open the Command Palette (Ctrl+Shift+P)
+1. Type "Create Notebook"
+1. Select "Mentor: Create Notebook" from the dropdown
+</Steps>
+
+## Creating Cells
+Mentor notebooks are implemented as native [Visual Studio Code Jupyter notebooks](https://code.visualstudio.com/docs/datascience/jupyter-notebooks). You can create new cells by
+either clicking on the <span class="button"><span class="codicon codicon-add icon-inline"></span> Code</span> or <span class="button"><span class="codicon codicon-add"></span> Markdown</span> buttons in the notebook toolbar
+or by hovering at the bottom edge of existing cells:
+
+<img class="screenshot" src="/screenshots/notebook-new.png" alt="Screenshot of a new Mentor Notebook"/>
+
+The buttons in the toolbar append new cells to the notebook, while clicking on the buttons at the bottom edge 
+of existing cells will create a new cell right below the hovered cell.
+
+### Markdown
+Markdown cells allow you to write rich text using [Markdown](https://www.markdownguide.org/) which allows you 
+to add headings, lists, links, images, and more. It's an ideal format for structured text that focuses on content 
+rather than presentation.
+
+It is common practise to use Markdown cells for documenting competency questions the subsequent queries provide 
+answers for. In general, documentation content of the notebooks should focus on the 'why' some modeling or queries
+are structured the way they are instead of the 'how' which is usually covered by the code itself.
+
+<Aside type="tip" title="Adding Diagrams">
+Using the [Markdown Preview Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid) extension, you can also add diagrams 
+to your Markdown cells using the [Mermaid](https://mermaid-js.github.io/mermaid/#/) syntax.
+</Aside>
+
+### SPARQL Queries
+
+### RDF Data
+
+## Publishing Notebooks

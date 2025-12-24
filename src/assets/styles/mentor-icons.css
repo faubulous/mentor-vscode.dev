@@ -8,6 +8,14 @@
     border-radius: 3px;
 }
 
+.button {
+    background-color: var(--sl-color-bg-inline-code);
+    border-radius: 3px;
+    padding: 3px;
+    display: inline-block;
+    line-height: 1.2em;
+}
+
 .icon-placeholder {
     visibility: hidden;
 }
@@ -30,6 +38,10 @@
 
 .mentor-icon::before {
     content: "";
+}
+
+.mentor::before {
+    content: '\e000';
 }
 
 .mentor-rdf-class::before {

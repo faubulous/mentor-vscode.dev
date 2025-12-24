@@ -34,8 +34,8 @@ export default defineConfig({
 							slug: 'about/release-history'
 						},
 						{
-							label: 'Contributing',
-							slug: 'about/contributing'
+							label: 'Support',
+							slug: 'about/support'
 						}
 					]
 				},
