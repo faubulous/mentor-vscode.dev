@@ -72,6 +72,11 @@ html[data-theme="light"] {
         padding-bottom: 2rem;
     }
 
+    .table td,
+    .table th {
+        padding-right: 5ch;
+    }
+
     .table-10ch :is(th:first-child, td:first-child):not(:where(.not-content *)) {
         min-width: 10ch;
     }

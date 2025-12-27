@@ -154,19 +154,25 @@ The view only contains the basic query execution information and does not provid
 For [SPARQL Construct](https://www.w3.org/TR/sparql11-query/#construct) or [SPARQL Describe](https://www.w3.org/TR/sparql11-query/#describe) queries, the result is a set of 
 RDF graphs that represent the data matching the query pattern. 
 
-<Aside type="note" title="Output Locations">
 Because the results of these queries are RDF documents, the output is not displayed in the output panel. 
 Depending on the execution context, the output in Turtle format is displayed in the following locations:
 
-| Query Source | Output Location |
+<div class="table">
+| Query Context | Output Location |
 | ------------ | --------------- |
 | *SPARQL Document* | New editor document |
 | *Notebook Cell* | Cell output area |
-</Aside>
+</div>
 
-<Aside type="tip" title="Tip">
-The results of SPARQL Construct and Describe queries are RDF documents and can be explored using the 
+#### Exploring Results
+The results of SPARQL Construct and Describe queries which are displayed in editor documents can be explored using the 
 [Definitions Tree](/features/definitions-tree).
+
+<img class="screenshot" src="/screenshots/notebook-output-turtle.png" alt="Screenshot of a Turtle cell"/>
+
+<Aside type="note">
+Unfortunately, the output of notebook cells cannot be processed in the same way at the time of this writing. However,
+you can right-click the output cell in a notebook and select 'Open Cell Output in Text Editor' to achieve this.
 </Aside>
 
 ### Success / Failure

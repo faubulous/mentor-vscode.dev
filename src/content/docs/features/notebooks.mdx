@@ -9,7 +9,7 @@ Mentor supports interactive notebooks that allow you to combine executable SPARQ
 RDF data snippets and Markdown content for data science, query development and learning RDF.
 Mentor notebooks have the file extension `.mnb`.
 
-<Aside type="note" title="Zero Setup Query">
+<Aside type="tip" title="Zero Setup Query">
 What makes Mentor notebooks unique is a zero-setup approach: the 
 [Workspace Index](/features/workspace-index) provides you a triple store at 
 your fingertips without the need for any configuration. The data in this triple store can
@@ -19,6 +19,10 @@ be version-controlled, shared and published with ease using Git repositories.
 ## Creating Notebooks
 
 There are multiple ways to create notebooks in Mentor:
+
+<video class="screenshot my-3" width="800" controls autoplay muted>
+ <source src="/screenshots/notebook-create.mp4" type="video/mp4"/>
+</video>
 
 ### From the Mentor View
 <Steps title="From the Mentor View">
@@ -55,6 +59,8 @@ Markdown cells allow you to write rich text using [Markdown](https://www.markdow
 to add headings, lists, links, images, and more. It's an ideal format for structured text that focuses on content 
 rather than presentation.
 
+<img class="screenshot" src="/screenshots/notebook-cell-markdown.png" alt="Screenshot of a Markdown cell"/>
+
 It is common practise to use Markdown cells for documenting competency questions the subsequent queries provide 
 answers for. In general, documentation content of the notebooks should focus on the 'why' some modeling or queries
 are structured the way they are instead of the 'how' which is usually covered by the code itself.
@@ -65,7 +71,24 @@ to your Markdown cells using the [Mermaid](https://mermaid-js.github.io/mermaid/
 </Aside>
 
 ### SPARQL Queries
+SPARQL cells allow you to write and execute SPARQL queries against the Workspace Index or any connected 
+SPARQL endpoint. To enable SPARQL cells, simply create a new code cell and select "SPARQL" as the cell type.
+
+<img class="screenshot" src="/screenshots/notebook-cell-sparql.png" alt="Screenshot of a SPARQL cell"/>
+
+All editor features are available within SPARQL cells, including syntax highlighting, autocompletion, and 
+error checking. To execute a SPARQL cell, [select the connection](/features/sparql-query#select-connection) in the Code Lens located at the top
+of the cell and click the <span class="codicon codicon-run icon-inline"></span> button in the cell toolbar.
 
 ### RDF Data
+RDF Data cells allow you to write data in all [supported serialization formats](/features/syntax-highlighting#supported-formats).
+To create an RDF Data cell, simply create a new code cell and select any of the RDF serialization formats as the cell type.
 
-## Publishing Notebooks
+<img class="screenshot" src="/screenshots/notebook-cell-turtle.png" alt="Screenshot of a Turtle cell"/>
+
+<Aside type="note" title="Referencing Data Cells">
+In principal RDF data cells can be treated as ordinary documents in Visual Studio Code. This would
+allow to reference the data of notebook cells from queries in any SPARQL query in the workspace.
+
+At the time of this writing, support for indexing notebook cell data is planned, but has not yet been implemented in Mentor.
+</Aside>
