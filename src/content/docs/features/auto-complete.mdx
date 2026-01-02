@@ -2,3 +2,31 @@
 title: Auto Complete
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
+
+Mentor offers comprehensive auto-completion support for RDF languages, including SPARQL and RDF data. 
+This feature enhances productivity by providing real-time suggestions for terms, 
+helping users write accurate queries while minimizing errors caused by invalid or unknown terms.
+
+<video class="screenshot my-3" width="500" controls autoplay muted>
+ <source src="/screenshots/autocomplete.mp4" type="video/mp4"/>
+</video>
+
+## Resolution Strategy
+The auto-complete system lists all known subjects, predicates, and objects defined in the 
+currently edited namespace, enabling you to quickly access relevant RDF terms without memorizing them.
+The namespaces are resolved according to the definitions in the current document and support
+looking up terms that are defined in other documents in the workspace. 
+
+The following resolution order applies:
+
+1. **Document**: Suggestions from the current document are prioritised for immediate relevance.
+2. **Workspace / Standards**: If no matches are found in the local document, Mentor extends suggestions to other files in the workspace or standard RDF vocabularies.
+
+This priority system ensures that you receive the most contextually appropriate suggestions first.
+
+### Triple Context Awareness 
+Mentor’s auto-complete functionality is context-aware, providing suggestions based on the 
+position of the cursor within the currently edited RDF triple:
+
+- **Subjects / Objects:** When the cursor is on a subject or object, Mentor lists all subjects or objects defined within the namespace.
+- **Predicates:** When the cursor is on a triple predicate, Mentor lists all relevant predicates available in the corresponding namespace and falls back to subjects if none are found.

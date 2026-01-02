@@ -72,7 +72,7 @@ to your Markdown cells using the [Mermaid](https://mermaid-js.github.io/mermaid/
 
 ### SPARQL Queries
 SPARQL cells allow you to write and execute SPARQL queries against the Workspace Index or any connected 
-SPARQL endpoint. To enable SPARQL cells, simply create a new code cell and select "SPARQL" as the cell type.
+SPARQL endpoint. To enable SPARQL cells, simply create a new code cell and select "SPARQL" as the cell language.
 
 <img class="screenshot" src="/screenshots/notebook-cell-sparql.png" alt="Screenshot of a SPARQL cell"/>
 
@@ -82,13 +82,14 @@ of the cell and click the <span class="codicon codicon-run icon-inline"></span> 
 
 ### RDF Data
 RDF Data cells allow you to write data in all [supported serialization formats](/features/syntax-highlighting#supported-formats).
-To create an RDF Data cell, simply create a new code cell and select any of the RDF serialization formats as the cell type.
+To create an RDF Data cell, simply create a new code cell and select any of the RDF serialization formats as the cell language.
 
 <img class="screenshot" src="/screenshots/notebook-cell-turtle.png" alt="Screenshot of a Turtle cell"/>
 
 <Aside type="note" title="Referencing Data Cells">
-In principal RDF data cells can be treated as ordinary documents in Visual Studio Code. This would
+In theory RDF data cells can be treated as ordinary documents in Visual Studio Code. This would
 allow to reference the data of notebook cells from queries in any SPARQL query in the workspace.
 
-At the time of this writing, support for indexing notebook cell data is planned, but has not yet been implemented in Mentor.
+**At the time of this writing, support for indexing notebook cell data is planned, but has not yet 
+been implemented in Mentor.**
 </Aside>
