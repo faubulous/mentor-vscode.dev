@@ -23,9 +23,16 @@ import { LinkCard } from '@astrojs/starlight/components';
 <img class="screenshot w-100" src="/screenshots/window.png" alt="Screenshot of Mentor for Visual Studio Code" />
 
 ## News
-<Aside icon="rss" title="Version 0.3.7">
-We are excited to announce the release of Mentor version 0.3.7! This update brings several new features, 
-improvements, and bug fixes to enhance your experience with Mentor.
+<Aside icon="rss" title="Version 0.3.8, 5th January 2026">
+Happy New Year! 🎉
+
+This service release fixes the following bugs:
+
+- Broken auto-complete support.
+- Missing refresh icon in SPARQL boolean query results.
+- `:` prefixes in files are now implemented as `workspace:` URIs instead of `file:` to improve portability.
+
+It also adds a link to mentor-vscode.dev for help and documentation.
 </Aside>
 
 [Release History](/about/release-history/)
@@ -90,10 +97,4 @@ Mentor offers a wide range of features to help you efficiently develop your proj
   title="Live Collaboration"
   href="/features/live-collaboration/"
   description="Run Mentor in the browser on vscode.dev and edit GitHub repositories online."
-/>
-
-<LinkCard
-  title="Git Integration"
-  href="/features/git-integration/"
-  description="Seamlessly integrate with Git to manage version control and collaborate with your team."
 />

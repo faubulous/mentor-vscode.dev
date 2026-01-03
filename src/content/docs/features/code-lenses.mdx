@@ -1,0 +1,36 @@
+---
+title: Code Lenses
+description: The developer friendly IDE for RDF knowledge graph projects.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+[Code Lenses](https://vscode.rocks/codelens/) are a powerful feature in Visual Studio Code 
+that allows you to display contextual information and actions directly within code. Mentor
+currently provides code lenses to display usage information and SPARQL connections.
+
+## Usages Lens
+The Usages Lens displays all the places where a particular resource is used within the 
+workspace. With *usage* we are referring to all occurrences of a resource URI in either 
+RDF data files or SPARQL queries.
+
+<img class="screenshot my-3" src="/screenshots/codelens-usages.png" alt="Screenshot of Usage Lens" width="800"/>
+
+This lens helps you understand the impact of changes to a resource and facilitates 
+refactoring by providing a comprehensive view of its usage. When you click on a usage lens,
+a reference search is triggered, showing all occurrences in the workspace.
+
+<Aside type="note" title="Usage Count Calculation">
+The number that is displayed in the Usage Lens is the total number of occurrences of the resource
+URI (prefixed name or full URI) in the workspace minus one. This means that a resource that is 
+only defined but not used anywhere else will show up as having zero usages.
+</Aside>
+
+## Connections Lens
+The Connections Lens displays the SPARQL endpoint the query or notebook cell will be executed
+against. When clicking on the lens you will be presented with a list of configured SPARQL
+connections to choose from.
+
+<img class="screenshot my-3" src="/screenshots/codelens-connections.png" alt="Screenshot of Connections Lens" width="400"/>
+
+Please refer to the [SPARQL Query](/features/sparql-query) documentation for more details.

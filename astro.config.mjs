@@ -72,6 +72,10 @@ export default defineConfig({
 							slug: 'features/auto-complete'
 						},
 						{
+							label: 'Code Lenses',
+							slug: 'features/code-lenses'
+						},
+						{
 							label: 'Prefix Management',
 							slug: 'features/prefix-management'
 						},
@@ -88,7 +92,16 @@ export default defineConfig({
 							slug: 'features/notebooks'
 						}
 					]
-				}
+				},
+				{
+					label: 'Collaboration',
+					items: [
+						{
+							label: 'Live Collaboration',
+							slug: 'features/live-collaboration'
+						},
+					]
+				},
 			],
 		}),
 	],
