@@ -86,10 +86,7 @@ To create an RDF Data cell, simply create a new code cell and select any of the 
 
 <img class="screenshot" src="/screenshots/notebook-cell-turtle.png" alt="Screenshot of a Turtle cell"/>
 
-<Aside type="note" title="Referencing Data Cells">
-In theory RDF data cells can be treated as ordinary documents in Visual Studio Code. This would
-allow to reference the data of notebook cells from queries in any SPARQL query in the workspace.
-
-**At the time of this writing, support for indexing notebook cell data is planned, but has not yet 
-been implemented in Mentor.**
+<Aside type="tip">
+Notebook cells are treated just like any other file in your workspace. This means they get their own
+graph in the in-memory triple store and the contents can be explored using the [Definitions Tree](/features/definitions-tree).
 </Aside>
