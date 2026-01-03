@@ -93,15 +93,15 @@ export default defineConfig({
 						}
 					]
 				},
-				{
-					label: 'Collaboration',
-					items: [
-						{
-							label: 'Live Collaboration',
-							slug: 'features/live-collaboration'
-						},
-					]
-				},
+				// {
+				// 	label: 'Collaboration',
+				// 	items: [
+				// 		{
+				// 			label: 'Live Collaboration',
+				// 			slug: 'features/live-collaboration'
+				// 		},
+				// 	]
+				// },
 			],
 		}),
 	],
