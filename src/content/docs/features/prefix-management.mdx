@@ -29,6 +29,28 @@ The preference of prefix lookups is as follows:
 1. Existing prefix mappings in the Workspace Index
 1. Community-contributed prefixes from the prefix.cc database
 
+### Unnamed Prefixes
+When you are editing an RDF document and you type an unnamed prefix (`:`), then Mentor will automatically
+generate a [Workspace URI](/features/workspace-index#documents) that references the document relative to
+the workspace root. By default, Mentor will append a fragment identifier to the workspace relative URI.
+
+Example: When typing the `:`prefix in a document that is located at `/example.ttl`, Mentor will generate
+the following namespace declaration:
+
+```
+workspace:/example.ttl#
+```
+
+This behaviour is different when working in notebook cells, as fragment identifiers are part of the
+URI scheme for notebook cells. In this case, Mentor will automatically append a query parameter to 
+the URI to ensure that the fragment is preserved. 
+
+```
+workspace:/example.mnb#abc123?id=
+```
+
+By default, the parameter name is `id`, but it can be customised in the [settings](#settings).
+
 ### prefix.cc Integration
 If you start a new project, then you will not have any existing prefix mappings. To help you get started Mentor 
 includes a copy of the [prefix.cc](https://prefix.cc/) database. This database contains thousands of 
@@ -72,4 +94,10 @@ The following settings can be used to configure the behaviour of the prefix mana
   title="mentor.prefixes.prefixDefinitionMode"
   href="vscode://settings/mentor.prefixes.prefixDefinitionMode"
   description="Controls in which order the prefixes should be defined in the document (sorted / append).">
+</LinkCard>
+
+<LinkCard
+  title="mentor.prefixes.queryParameterName"
+  href="vscode://settings/mentor.prefixes.queryParameterName"
+  description="Name of the query parameter that is appended to workspace: URIs which already contain a fragment id.">
 </LinkCard>
