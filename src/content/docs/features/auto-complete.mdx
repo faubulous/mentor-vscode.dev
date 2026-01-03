@@ -3,6 +3,8 @@ title: Auto Complete
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
+
 Mentor offers comprehensive auto-completion support for RDF languages, including SPARQL and RDF data. 
 This feature enhances productivity by providing real-time suggestions for terms, 
 helping users write accurate queries while minimizing errors caused by invalid or unknown terms.
@@ -24,9 +26,12 @@ The following resolution order applies:
 
 This priority system ensures that you receive the most contextually appropriate suggestions first.
 
-### Triple Context Awareness 
+<div class="my-3">
+<Aside type="tip" title="Triple Context Awareness">
 Mentor’s auto-complete functionality is context-aware, providing suggestions based on the 
 position of the cursor within the currently edited RDF triple:
 
 - **Subjects / Objects:** When the cursor is on a subject or object, Mentor lists all subjects or objects defined within the namespace.
 - **Predicates:** When the cursor is on a triple predicate, Mentor lists all relevant predicates available in the corresponding namespace and falls back to subjects if none are found.
+</Aside>
+</div>
