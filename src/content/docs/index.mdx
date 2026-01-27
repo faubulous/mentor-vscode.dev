@@ -27,16 +27,13 @@ import { LinkCard } from '@astrojs/starlight/components';
 <img class="screenshot w-100" src="/screenshots/window.png" alt="Screenshot of Mentor for Visual Studio Code" />
 
 ## News
-<Aside icon="rss" title="Version 0.3.8 - 4th January 2026">
-🎉 Happy New Year!
+<Aside icon="rss" title="Version 0.3.9 - 27th January 2026">
+This release adds some new features and includes bug fixes:
 
-This service release fixes the following bugs:
-
-- Broken auto-complete support.
-- Missing refresh icon in SPARQL boolean query results.
-- `:` prefixes in files are now implemented as `workspace:` URIs instead of `file:` to improve portability.
-
-It also adds a link to mentor-vscode.dev for help and documentation.
+- Added support for converting RDF file formats (RDF/XML, Turtle, TriG, N-Triples, N-Quads)
+- Added syntax highlighting and rename support for Datalog files
+- Fixes wrong icon for properties with datatype / range rdf:langString
+- Fixes 'Go to Shape Definition' command not visible for properties in Definition Tree
 </Aside>
 
 [Release History](/about/release-history/)
