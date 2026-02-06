@@ -27,13 +27,14 @@ import { LinkCard } from '@astrojs/starlight/components';
 <img class="screenshot w-100" src="/screenshots/window.png" alt="Screenshot of Mentor for Visual Studio Code" />
 
 ## News
-<Aside icon="rss" title="Version 0.3.9 - 27th January 2026">
-This release adds some new features and includes bug fixes:
+<Aside icon="rss" title="Version 0.3.10 - 6th February 2026">
+Improved SPARQL connection management:
 
-- Added support for converting RDF file formats (RDF/XML, Turtle, TriG, N-Triples, N-Quads)
-- Added syntax highlighting and rename support for Datalog files
-- Fixes wrong icon for properties with datatype / range rdf:langString
-- Fixes 'Go to Shape Definition' command not visible for properties in Definition Tree
+- Moved SPARQL connection management into dedicated view
+    - Removed old connection management tree view
+- Added basic graph management:
+    - Can list SPARQL endpoint graphs in connection view
+    - Can drop graphs to binding result view
 </Aside>
 
 [Release History](/about/release-history/)
@@ -91,6 +92,12 @@ Mentor offers a wide range of features to help you efficiently develop your proj
   title="Refactoring"
   href="/features/refactoring/"
   description="Rename prefixes and resource labels, sort and remove unused prefix definitions, and more."
+/>
+
+<LinkCard
+  title="SPARQL Connections"
+  href="/features/sparql-connections/"
+  description="Manage SPARQL connections for querying RDF data."
 />
 
 <LinkCard

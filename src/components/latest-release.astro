@@ -1,0 +1,51 @@
+---
+import fs from "fs";
+import path from "path";
+import { Aside } from "@astrojs/starlight/components";
+
+const { filePath = "src/content/docs/about/release-history.mdx" } = Astro.props;
+
+let fileContent = "";
+
+try {
+    fileContent = fs.readFileSync(path.join(process.cwd(), filePath), "utf-8");
+} catch (err) {
+    fileContent = "";
+}
+
+const releaseNoteMatch = fileContent.match(/<Aside([^>]*)>([\s\S]*?)<\/Aside>/i);
+
+let title = "";
+let body = "";
+
+if (releaseNoteMatch) {
+    const attrs = releaseNoteMatch[1];
+    body = releaseNoteMatch[2].trim();
+
+    const titleMatch = attrs.match(/title\s*=\s*"([^"]*)"/);
+
+    title = titleMatch ? titleMatch[1] : "";
+}
+
+function escapeHtml(str = "") {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+// convert simple markdown/newlines to minimal HTML (keeps it safe)
+const htmlBody = body
+    ? "<p>" +
+      escapeHtml(body)
+          .replace(/\r\n|\r|\n{2,}/g, "</p><p>")
+          .replace(/\n/g, "<br>") +
+      "</p>"
+    : "";
+---
+
+<Aside icon="rss" title={title}>
+    {htmlBody}
+</Aside>
