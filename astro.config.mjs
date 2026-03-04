@@ -53,10 +53,6 @@ export default defineConfig({
 						{
 							label: 'Definitions Tree',
 							slug: 'features/definitions-tree'
-						},
-						{
-							label: 'Connections Tree',
-							slug: 'features/connections-tree'
 						}
 					]
 				},
@@ -82,6 +78,10 @@ export default defineConfig({
 						{
 							label: 'Refactoring',
 							slug: 'features/refactoring'
+						},
+						{
+							label: 'SPARQL Connections',
+							slug: 'features/sparql-connections'
 						},
 						{
 							label: 'SPARQL Query',

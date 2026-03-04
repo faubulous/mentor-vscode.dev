@@ -115,3 +115,11 @@
 .mentor-mentor-notebook::before {
     content: '\e012';
 }
+
+.mentor-datalog-file::before {
+    content: '\e013';
+}
+
+.mentor-sparql-connection::before {
+    content: '\e014';
+}

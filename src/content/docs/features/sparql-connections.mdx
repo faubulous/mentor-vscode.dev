@@ -1,0 +1,95 @@
+---
+title: SPARQL Connections
+description: The developer friendly IDE for RDF knowledge graph projects.
+---
+
+import { Aside, LinkCard } from '@astrojs/starlight/components';
+
+The SPARQL Connections View provides lets you manage all SPARQL endpoints that 
+can be selected in query files or Mentor notebooks to execute queries 
+against local or remote endpoints:
+
+<img class="screenshot my-3" src="/screenshots/sparql-connections-view.png" alt="Screenshot of the SPARQL Connections View in Visual Studio Code" width="500" />
+
+The view is divided into two sections: **User** and **Workspace**.
+
+<div class="table-20ch">
+| Type | Description |
+| ----------------- | ------------- |
+| **User** | User connections are only available to the current user and are typically stored on the user's local machine. |
+| **Workspace** | Workspace connections are stored in the .vscode directory and can thus be shared with other users in version controlled repositories. |
+</div>
+
+### View Actions
+The connections tree offers several actions that are visible as icons in the title bar:
+
+<div class="table-30ch">
+| Action | Description |
+| ----------------- | ------------- |
+| <span class="codicon codicon-debug-disconnect icon-inline"></span> *Test All Connections* | Executes a connection test on all connections in the view. |
+| <span class="codicon codicon-plus icon-inline"></span> *Add Connection* | Configure a new SPARQL connection. |
+</div>
+
+### Connection Actions
+When you select or hover a connection in the list view, additional actions will become available in the connection header:
+
+<img class="screenshot my-3" src="/screenshots/sparql-connection-item.png" alt="Hovering over a SPARQL connection item" width="500" />
+
+<div class="table-30ch">
+| Action | Description |
+| ----------------- | ------------- |
+| <span class="codicon codicon-list-unordered icon-inline"></span> *List Graphs* | Executes a SPARQL query to list all graphs in the selected connection. |
+| <span class="codicon codicon-debug-disconnect icon-inline"></span> *Test Connection* | Executes a connection test on the selected connection. |
+| <span class="codicon codicon-trash icon-inline"></span> *Delete Connection* | Deletes the selected SPARQL connection. |
+</div>
+
+## Editing Connections
+When you select an existing connection in the connections manager or when you click on the 'Add Connection' icon,
+the connection details will be displayed in a new tab. 
+
+From here, you can modify the connection settings, such as the
+SPARQL endpoint URL, authentication credentials, and other parameters. Once you have made your changes, you can save them
+to update the connection.
+
+<img class="screenshot my-3" src="/screenshots/sparql-connection-workspace.png" alt="SPARQL connection parameter form" width="600"/>
+
+<Aside type="note" title="Workspace Connection">
+The workspace is a special SPARQL endpoint that gives you access to [Mentor's internal RDF triple store](/features/workspace-index/#generated-graphs). The data in this
+store is recreated every time you open a new workspace and this connection cannot be deleted. It can be queried from
+[SPARQL files](/features/sparql-query/) and [Mentor notebooks](/features/mentor-notebooks/).
+</Aside>
+
+### Authentication
+The following authentication methods are supported for SPARQL connections:
+
+| Type | Description |
+| ----------------- | ------------- |
+| **None** | No authentication. |
+| **Basic** | Basic HTTP(s) authentication using a username and password. |
+| **Bearer Token** | Authentication using a bearer token. |
+| **Microsoft Entra** | Authentication using Microsoft Entra ID provider that is built into Visual Studio Code. |
+
+<Aside type="note" title="Security">
+The credentials for SPARQL connections are stored securely in the Visual Studio Code credential store. This means that your sensitive information, such as usernames and passwords, are not stored in plain text and are protected by the operating system's security features.
+
+They are never stored in the workspace or in any project files and thus cannot be shared with others.
+</Aside>
+
+## Testing Connections
+Once you have configured a connection, you can test it to ensure that it is working correctly. To test a connection, follow these steps:
+
+1. Click on the <span class="codicon codicon-debug-disconnect icon-inline"></span> button on the list item or in the connection detail view.
+2. The connection status will be displayed as a notification.
+
+If the test fails, you may need to adjust the connection settings and try again.
+
+<video class="screenshot my-3" width="500" controls autoplay muted>
+ <source src="/screenshots/sparql-connection-test.mp4" type="video/mp4"/>
+</video>
+
+## Deleting Connections
+To delete a connection from the connections view you can either use the <span class="codicon codicon-trash icon-inline"></span> icon in the 
+connections manager or click on the same icon in the connection detail view.
+
+When asked, confirm the deletion when prompted. Please keep in mind that once
+ a connection is deleted, it cannot be recovered, so make sure you really want to delete it before confirming.
