@@ -27,13 +27,13 @@ import { LinkCard } from '@astrojs/starlight/components';
 <img class="screenshot w-100" src="/screenshots/window.png" alt="Screenshot of Mentor for Visual Studio Code" />
 
 ## News
-<Aside icon="rss" title="Version 0.3.9 - 27th January 2026">
-This release adds some new features and includes bug fixes:
+<Aside icon="rss" title="Version 0.4.0 - 4th March 2026">
+This is is a pre-release version to test the new RDF 1.2 support and parsers before an actual release. Testing and feedback welcome.
 
-- Added support for converting RDF file formats (RDF/XML, Turtle, TriG, N-Triples, N-Quads)
-- Added syntax highlighting and rename support for Datalog files
-- Fixes wrong icon for properties with datatype / range rdf:langString
-- Fixes 'Go to Shape Definition' command not visible for properties in Definition Tree
+- Added support for RDF 1.2 syntax in N-Triples, N-Quads, Turtle, TriG, N3
+  - Based on new [mentor-rdf-parsers](https://github.com/faubulous/mentor-rdf-parsers) library
+  - Will enable code formatting and linting in future releases
+- Up to 3x faster workspace indexing because of more efficient parsing
 </Aside>
 
 [Release History](/about/release-history/)
