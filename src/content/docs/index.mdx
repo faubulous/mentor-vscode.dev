@@ -27,13 +27,20 @@ import { LinkCard } from '@astrojs/starlight/components';
 <img class="screenshot w-100" src="/screenshots/window.png" alt="Screenshot of Mentor for Visual Studio Code" />
 
 ## News
-<Aside icon="rss" title="Version 0.4.0 - 4th March 2026">
-This is is a pre-release version to test the new RDF 1.2 support and parsers before an actual release. Testing and feedback welcome.
+<Aside icon="rss" title="Version 0.5.0 - 16th March 2026">
+Official release of Mentor with support for RDF 1.2 syntax in N-Triples, N-Quads, Turtle, TriG, 
+N3 based on the new [mentor-rdf-parsers](https://github.com/faubulous/mentor-rdf-parsers) library.
 
-- Added support for RDF 1.2 syntax in N-Triples, N-Quads, Turtle, TriG, N3
-  - Based on new [mentor-rdf-parsers](https://github.com/faubulous/mentor-rdf-parsers) library
-  - Will enable code formatting and linting in future releases
-- Up to 3x faster workspace indexing because of more efficient parsing
+*New Features:*
+- Improved workspace index speed up to x4
+- Full RDF 1.2 support for N-Triples, N-Quads, Turtle, TriG, N3 and SPARQL
+  - Code formatting
+  - Format conversion
+- Added support for toggling inference in SPARQL queries
+  - Workspace inference graphs are hidden by default
+- Internal refactoring
+  - Faster extension activation and smaller package size
+  - No more CORS restrictions when running in VSCode desktop
 </Aside>
 
 [Release History](/about/release-history/)
