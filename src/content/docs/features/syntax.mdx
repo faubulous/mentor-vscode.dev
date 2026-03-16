@@ -1,0 +1,65 @@
+---
+title: Syntax Highlighting
+description: The developer friendly IDE for RDF knowledge graph projects.
+---
+
+Syntax highlighting enhances the readability of RDF documents by applying color coding to different syntax elements. Mentor
+aligns token types with the array of RDF namespaces that are used to determine the labels for nodes in the Definitions Tree standard semantic tokens provided by Visual Studio Code to integrate seamlessly with the developer experience of 
+other programming languages.
+
+<img class="screenshot my-3" src="/screenshots/syntax-highlighting.png" alt="Screenshot of the Syntax Highlighting in Visual Studio Code" width="800" />
+
+## Supported Formats
+Mentor supports syntax highlighting for the following RDF serialization formats:
+
+<div class="table-20ch">
+| Format | Formatting | Description |
+| -----------------  | ---------------- | ---------------- |
+| [*SPARQL 1.2*](https://www.w3.org/TR/sparql12-query/) | ✓ | A query language and protocol for RDF. |
+| [*N-Triples 1.2*](https://www.w3.org/TR/n-triples/) | ✓ | A line-based, plain text format for RDF data that can easily be streamed and used to flexibly combine data from multiple sources. |
+| [*N-Quads 1.2*](https://www.w3.org/TR/n-quads/) | ✓ | An extension of N-Triples that supports named graphs. |
+| [*Turtle 1.2*](https://www.w3.org/TR/turtle/) | ✓ | A compact, human-friendly format for RDF data. |
+| [*TriG 1.2*](https://www.w3.org/TR/trig/) | ✓ | A Turtle-based format for representing RDF graphs with named graphs. |
+| [*RDF/XML 1.2*](https://www.w3.org/TR/rdf-syntax-grammar/) |  | An XML-based syntax for representing RDF graphs. |
+| [*Datalog*](https://datalog.dev) |  | Declarative programming language that is used to express and manipulate data. |
+</div>
+
+## Code Formatting
+
+Code formatting is a feature that allows you to automatically format your RDF documents 
+according to a consistent style. This can improve the readability of your code and make it 
+easier to maintain. Mentor provides code formatting support for RDF documents in the supported formats.
+
+<video class="screenshot my-3" width="600" controls autoplay muted>
+ <source src="/screenshots/code-formatting.mp4" type="video/mp4"/>
+</video>
+
+## Format Conversion
+Mentor provides format conversion capabilities that allow you to convert RDF documents between 
+different serialization formats. This can be useful when you need to work with RDF data in a 
+specific format or when you want to share your RDF data with others who may prefer a different format.
+
+To convert an RDF document to a different format, you can use the "Convert Format" command. You can either
+access this command from the Command Palette (Ctrl+Shift+P) or by right-clicking on the editor 
+and selecting "Convert Format.." from the context menu.
+
+This will open a dropdown menu with the available target formats for conversion. Once you select 
+a target format, Mentor will perform the conversion and display the converted document in a new 
+editor tab.
+
+<video class="screenshot my-3" width="600" controls autoplay muted>
+ <source src="/screenshots/format-conversion.mp4" type="video/mp4"/>
+</video>
+
+The following table lists the supported format conversions in Mentor:
+
+<div class="table-20ch">
+| | N-Triples | N-Quads | Turtle | TriG | RDF/XML | Datalog |
+| --- | --- | --- | --- | --- | --- | --- |
+| N-Triples |     | ✓   | ✓   |    | ✓   |  |
+| N-Quads   | ✓   |     | ✓   |    | ✓   |  |
+| Turtle    | ✓   | ✓   |     |    | ✓   |  |
+| TriG      | ✓   | ✓   | ✓   |    | ✓   |  |
+| RDF/XML   | ✓   | ✓   | ✓   |    |     |  |
+| Datalog   |     |     |     |    |     |  |
+</div>

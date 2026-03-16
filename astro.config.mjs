@@ -61,15 +61,23 @@ export default defineConfig({
 					items: [
 						{
 							label: 'Syntax Highlighting',
-							slug: 'features/syntax-highlighting'
+							link: '/features/syntax#syntax-highlighting'
 						},
 						{
-							label: 'Auto Complete',
-							slug: 'features/auto-complete'
+							label: 'Code Formatting',
+							link: '/features/syntax#code-formatting'
+						},
+						{
+							label: 'Format Conversion',
+							link: '/features/syntax#format-conversion'
 						},
 						{
 							label: 'Code Lenses',
 							slug: 'features/code-lenses'
+						},
+						{
+							label: 'Auto Complete',
+							slug: 'features/auto-complete'
 						},
 						{
 							label: 'Prefix Management',
@@ -98,11 +106,10 @@ export default defineConfig({
 				// 	items: [
 				// 		{
 				// 			label: 'Live Collaboration',
-				// 			slug: 'features/live-collaboration'
 				// 		},
 				// 	]
 				// },
-			],
+			]
 		}),
 	],
 });

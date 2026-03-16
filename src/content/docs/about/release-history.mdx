@@ -3,6 +3,42 @@ title: Release History
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
+### Version 0.5.0: Official release with RDF 1.2 support and new parsers
+<span class="codicon codicon-calendar"></span> *18th March 2026*
+Official release of Mentor with support for RDF 1.2 syntax in N-Triples, N-Quads, Turtle, TriG, 
+N3 based on the new [mentor-rdf-parsers](https://github.com/faubulous/mentor-rdf-parsers) library.
+
+Features:
+- Improved workspace index speed up to x4
+- Full RDF 1.2 support
+ - N-Triples, N-Quads, Turtle, TriG, N3 and SPARQL
+- Code formatting
+- Format conversion
+- Added support for toggling inference in SPARQL queries
+ - Workspace inference graphs are hidden by default
+- Internal refactoring
+ - Faster extension activation and smaller package size
+ - No more CORS restrictions when running in VSCode desktop
+
+### Version 0.4.2: Multiplatform support and bug fixes
+<span class="codicon codicon-calendar"></span> *13th March 2026*
+This pre-release version adds support for running Mentor on multiple platforms, meaning Node.js 
+targets in VSCode on the Desktop and Web targets in VSCode for the Web. This means that there 
+are no-more CORS restrictions when qurying SPARQL endpoints from the desktop. However, CORS 
+restrictions still apply when running Mentor in the web, but this can be circumvented by using 
+a CORS proxy if needed.
+
+This release also introcduces features to control the inference behavior of SPARQL queries. By default,
+the Mentor internal inference graphs are not included in the query execution for workspace queries anymore.
+This can be changed by setting the `mentor.inference.enabled` setting to `true`. You can then
+choose to enable or disable inference for each query execution in the Code Lens of the sparql query.
+
+### Version 0.4.1: Refactored application core
+<span class="codicon codicon-calendar"></span> *11th March 2026*
+This release includes a refactor of the application core to improve maintainability and extensibility. The new 
+architecture switches from a monolitic application core to dependency injection to optimize the extensibility 
+and long term maintainability of the codebase. The new architecture also allows for easier testing.
+
 ### Version 0.4.0: RDF 1.2 support and new parsers (experimental)
 <span class="codicon codicon-calendar"></span> *4th March 2026*
 
