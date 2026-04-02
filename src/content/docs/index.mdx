@@ -27,10 +27,12 @@ import { LinkCard } from '@astrojs/starlight/components';
 <img class="screenshot w-100" src="/screenshots/window.png" alt="Screenshot of Mentor for Visual Studio Code" />
 
 ## News
-<Aside icon="rss" title="Version 0.5.4 - 31st March 2026">
-- Fixed bug where () brackets in Turtle got improperly formatted
-- Fixed bug where definitions of terms contianing referenced classes were not revealed in the tree
-- Adapted syntax highlighting to not show red prefixes with new VS Code theme
+<Aside icon="rss" title="Version 0.5.5 - 2nd April 2026">
+- Fixed bug where definition tree would become empty after editing a file
+- Fixed bug where reveal property shape command would not work for blank node shape definitions
+- Fixed broken auto-implementation of prefixes
+- Properly deleting graphs of untitled files when closing them without saving
+- Added command to query the graph of the currently edited document using SPARQL
 </Aside>
 
 [Release History](/about/release-history/)
