@@ -54,13 +54,19 @@ triples found in that document. The graph IRI is derived from the document's URI
 For example, for a document located at `/documents/example.ttl`, the corresponding graph IRI would be:
 
 ```
-workspace:/documents/example.ttl
+workspace:///documents/example.ttl
 ```
 
-<Aside type="note">
-The `workspace:` scheme is custom to Mentor and is always resolved relative to the current workspace root. 
+The URI follows standard URI syntax: `workspace://` is the scheme and authority separator, and the 
+third `/` begins the absolute path relative to the workspace root.
 
-It ensures that SPARQL queries are workspace-independent and can refer to documents in the workspace 
+<Aside type="note">
+The `workspace:` scheme is custom to Mentor and is always resolved relative to the workspace root. 
+By default, the root is the first open workspace folder. When a monorepo root is configured via the 
+`mentor.workspace.rootOffset` setting (see [Multi-Root Workspaces](#multi-root-workspaces) below), 
+all paths are resolved against that root instead.
+
+This ensures that SPARQL queries are workspace-independent and can refer to documents in the workspace 
 without using absolute file paths that may vary between different systems. This is important to enable
 version control and collaboration on knowledge graph projects.
 
@@ -90,11 +96,96 @@ The results of the reasoning process are stored in a separate graph that follows
 scheme as the document graph but appends `?inference` to the graph IRI. For example:
 
 ```
-workspace:/documents/example.ttl?inference
+workspace:///documents/example.ttl?inference
 ```
 
 If the data graph IRI already contains query parameters, then the `inference` parameter is simply 
 appended to the existing ones.
+
+## Multi-Root Workspaces
+When working with monorepos or projects that use multiple VS Code `.code-workspace` files, 
+graph IRIs need to be consistent across all workspaces. By default, workspace URIs are resolved 
+relative to the first open workspace folder, which can lead to different graph IRIs for the same 
+file when opened from different `.code-workspace` configurations.
+
+To solve this, you can configure a **monorepo root offset** in your `.code-workspace` file. This 
+tells Mentor where the common project root is relative to the workspace file, ensuring that all 
+workspaces sharing the same root produce identical graph IRIs.
+
+Note that this is a deliberate trade-off: by anchoring all workspace URIs to the monorepo root, 
+SPARQL queries become portable across all workspace configurations — but the paths in the generated 
+`workspace:///` URIs reflect the monorepo folder structure, which may differ from the folder hierarchy 
+visible in the VS Code Explorer. For example, a file shown under a workspace folder called `shared` 
+might have a graph IRI like `workspace:///packages/shared/core.ttl` if the monorepo root is above 
+the workspace folder. In practice, this trade-off is rarely noticeable because the workspace URIs are 
+primarily used internally by the triple store and in SPARQL queries, not in day-to-day navigation.
+
+### Configuration
+Add the `mentor.workspace.rootOffset` setting to the `settings` section of your `.code-workspace` file.
+The value is a relative path from the `.code-workspace` file's directory to the monorepo root.
+
+For example, given this project structure:
+
+```
+monorepo/
+├── frontend.code-workspace
+├── tools/
+│   └── backend.code-workspace
+├── ui/
+│   └── components.ttl
+├── shared/
+│   └── core.ttl
+```
+
+Configure each workspace file as follows:
+
+```json
+// frontend.code-workspace (at the monorepo root)
+{
+  "folders": [
+    { "path": "ui" },
+    { "path": "shared" }
+  ],
+  "settings": {
+    "mentor.workspace.rootOffset": "."
+  }
+}
+```
+
+```json
+// tools/backend.code-workspace (one level deep)
+{
+  "folders": [
+    { "path": "../api" },
+    { "path": "../shared" }
+  ],
+  "settings": {
+    "mentor.workspace.rootOffset": ".."
+  }
+}
+```
+
+With this configuration, the file `shared/core.ttl` produces the same graph IRI regardless of 
+which workspace is open:
+
+```
+workspace:///shared/core.ttl
+```
+
+This means SPARQL queries using `FROM <workspace:///shared/core.ttl>` will work identically 
+in both workspaces and can be safely committed to version control.
+
+<Aside type="tip">
+The `rootOffset` value uses the same relative path syntax as folder paths in `.code-workspace` files. 
+Use `"."` when the workspace file is at the monorepo root, `".."` when it is one directory below, 
+`"../.."` for two levels deep, and so on.
+</Aside>
+
+<Aside type="note">
+When no `mentor.workspace.rootOffset` is configured, Mentor falls back to the default behavior 
+of resolving workspace URIs relative to the first open workspace folder. This maintains full 
+backward compatibility with existing projects.
+</Aside>
 
 ## Memory Usage
 The memory consumption depends on the size of your workspace and the number of RDF terms used. For large workspaces, this may lead to increased memory usage. You can monitor the memory consumption of Mentor in the Visual Studio Code Process Explorer.
