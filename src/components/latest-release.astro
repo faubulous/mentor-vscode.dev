@@ -13,39 +13,42 @@ try {
     fileContent = "";
 }
 
-const releaseNoteMatch = fileContent.match(/<Aside([^>]*)>([\s\S]*?)<\/Aside>/i);
-
+// Parse the first release entry from the H3-based format used in release-history.mdx.
+// Entries are separated by lines beginning with "### Version ".
 let title = "";
 let body = "";
 
-if (releaseNoteMatch) {
-    const attrs = releaseNoteMatch[1];
-    body = releaseNoteMatch[2].trim();
+if (fileContent) {
+    const parts = fileContent.split(/\n(?=### Version )/);
+    const firstEntry = parts.find((p) => p.startsWith("### Version "));
 
-    const titleMatch = attrs.match(/title\s*=\s*"([^"]*)"/);
+    if (firstEntry) {
+        const lines = firstEntry.split("\n");
 
-    title = titleMatch ? titleMatch[1] : "";
+        // Heading: "### Version X.Y.Z: Title"
+        const headingMatch = lines[0].match(/^### Version ([\d.]+(?:-\S+)?): (.+)$/);
+        const version = headingMatch ? headingMatch[1] : "";
+        const entryTitle = headingMatch ? headingMatch[2].trim() : "";
+
+        // Date: line containing "codicon-calendar", e.g. `*4th April 2026*`
+        const dateLine = lines.find((l) => l.includes("codicon-calendar"));
+        const dateMatch = dateLine ? dateLine.match(/\*([^*]+)\*/) : null;
+        const date = dateMatch ? dateMatch[1].trim() : "";
+
+        title = date ? `Version ${version} - ${date}` : `Version ${version}: ${entryTitle}`;
+
+        // Body: remaining lines, HTML tags stripped, blank lines at start/end trimmed
+        body = lines
+            .slice(1)
+            .filter((l) => !l.includes("codicon-calendar"))
+            .join("\n")
+            .replace(/<[^>]+>/g, "")
+            .replace(/^\n+/, "")
+            .replace(/\n+$/, "");
+    }
 }
-
-function escapeHtml(str = "") {
-    return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-}
-
-// convert simple markdown/newlines to minimal HTML (keeps it safe)
-const htmlBody = body
-    ? "<p>" +
-      escapeHtml(body)
-          .replace(/\r\n|\r|\n{2,}/g, "</p><p>")
-          .replace(/\n/g, "<br>") +
-      "</p>"
-    : "";
 ---
 
 <Aside icon="rss" title={title}>
-    {htmlBody}
+    <Fragment set:markdown={body} />
 </Aside>
