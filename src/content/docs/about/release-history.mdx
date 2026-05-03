@@ -3,6 +3,15 @@ title: Release History
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
+### Version 0.5.8: Service Release
+- Fixed broken 'Execute' buttons in SPARQL queries
+- Fixed issues with whitespaces in file paths and folder names
+  - Wrong display in the workspace tree
+  - Missing escape characters in the generated workspace: URIs
+  - Folders with whitespaces do not show content when expanded in the workspace tree
+- Fixed escaping of '_' characters in local names (e.g. `ex:foo_bar` -> `ex:foo\_bar`)
+- Fixed issue where aggregate functions on blank nodes won't return results [#70](https://github.com/faubulous/mentor-vscode/issues/70)
+
 ### Version 0.5.7: Service Release
 <span class="codicon codicon-calendar"></span> *26th April 2026*
 - Added experimental SHACL validation with violation decorations and diagnostics
