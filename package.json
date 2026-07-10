@@ -10,8 +10,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.38.4",
-    "astro": "^6.0.5",
+    "@astrojs/starlight": "^0.41.3",
+    "astro": "^7.0.7",
     "sharp": "^0.34.2"
+  },
+  "overrides": {
+    "devalue": "^5.8.1",
+    "esbuild": "^0.28.1",
+    "js-yaml": "^4.3.0"
   }
 }
