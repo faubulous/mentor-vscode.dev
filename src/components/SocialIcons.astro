@@ -1,0 +1,214 @@
+---
+import Default from '@astrojs/starlight/components/SocialIcons.astro';
+import { Icon } from '@astrojs/starlight/components';
+
+// Same computation Starlight uses for the page canonical URL.
+const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.href;
+const { title } = Astro.locals.starlightRoute.entry.data;
+
+const u = encodeURIComponent(url);
+const t = encodeURIComponent(title);
+
+// Mastodon has no universal share endpoint; mastodonshare.com asks for
+// the user's instance once and remembers it.
+const targets = [
+	{ label: 'LinkedIn', icon: 'linkedin', href: `https://www.linkedin.com/sharing/share-offsite/?url=${u}` },
+	{ label: 'Reddit', icon: 'reddit', href: `https://www.reddit.com/submit?url=${u}&title=${t}` },
+	{ label: 'WhatsApp', icon: undefined, href: `https://wa.me/?text=${t}%20${u}` },
+	{ label: 'X', icon: 'x.com', href: `https://x.com/intent/post?url=${u}&text=${t}` },
+	{ label: 'Bluesky', icon: 'blueSky', href: `https://bsky.app/intent/compose?text=${t}%20${u}` },
+	{ label: 'Mastodon', icon: 'mastodon', href: `https://mastodonshare.com/?url=${u}&text=${t}` },
+	{ label: 'Email', icon: 'email', href: `mailto:?subject=${t}&body=${u}` },
+] as const;
+---
+
+<mentor-share-menu data-title={title} data-url={url}>
+	<details class="share">
+		<summary class="sl-flex" title="Share this page">
+			<span class="sr-only">Share this page</span>
+			<svg
+				aria-hidden="true"
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="currentColor"
+				style="--sl-icon-size: 1em;"
+			>
+				<path
+					d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.44-.08.66 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
+				/>
+			</svg>
+		</summary>
+		<ul class="dropdown">
+			<li hidden data-share-native>
+				<button type="button">
+					<Icon name="external" />
+					<span>Share via device…</span>
+				</button>
+			</li>
+			{
+				targets.map(({ label, icon, href }) => (
+					<li>
+						<a {href} {...(href.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}>
+							{icon ? (
+								<Icon name={icon} />
+							) : (
+								<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;">
+									<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+								</svg>
+							)}
+							<span>{label}</span>
+						</a>
+					</li>
+				))
+			}
+			<li hidden data-share-copy>
+				<button type="button">
+					<Icon name="link" />
+					<span data-copy-label aria-live="polite">Copy link</span>
+				</button>
+			</li>
+		</ul>
+	</details>
+</mentor-share-menu>
+<Default><slot /></Default>
+
+<style>
+	@layer mentor {
+		.share {
+			position: relative;
+		}
+
+		.share > summary {
+			list-style: none;
+			cursor: pointer;
+			color: var(--sl-color-text-accent);
+			padding: 0.5em;
+			margin: -0.5em;
+			border-radius: 0.25rem;
+			font-size: 1rem;
+		}
+
+		.share > summary::-webkit-details-marker {
+			display: none;
+		}
+
+		.share > summary:hover {
+			color: var(--sl-color-white);
+		}
+
+		.dropdown {
+			position: absolute;
+			inset-inline-end: -0.5em;
+			top: calc(100% + 0.75rem);
+			z-index: 10;
+			min-width: 12rem;
+			max-width: calc(100vw - 2rem);
+			margin: 0;
+			padding: 0.25rem;
+			list-style: none;
+			background-color: var(--sl-color-bg-nav);
+			border: 1px solid var(--sl-color-gray-5);
+			border-radius: 0.5rem;
+			box-shadow: var(--sl-shadow-md);
+		}
+
+		.dropdown a,
+		.dropdown button {
+			display: flex;
+			align-items: center;
+			gap: 0.625rem;
+			width: 100%;
+			padding: 0.4rem 0.625rem;
+			color: var(--sl-color-gray-1);
+			text-decoration: none;
+			font-size: var(--sl-text-sm);
+			background: none;
+			border: 0;
+			border-radius: 0.25rem;
+			cursor: pointer;
+		}
+
+		.dropdown a:hover,
+		.dropdown button:hover {
+			background-color: var(--sl-color-gray-6);
+			color: var(--sl-color-white);
+		}
+
+		/* The mobile menu footer instance sits at the bottom of the slide-in
+		   drawer, start-aligned — open the menu upward there instead. */
+		:global(.mobile-preferences) .dropdown {
+			top: auto;
+			bottom: calc(100% + 0.75rem);
+			inset-inline-end: auto;
+			inset-inline-start: -0.5em;
+		}
+
+		@media print {
+			mentor-share-menu {
+				display: none;
+			}
+		}
+	}
+</style>
+
+<script>
+	class MentorShareMenu extends HTMLElement {
+		constructor() {
+			super();
+			const details = this.querySelector('details');
+			const summary = details?.querySelector('summary');
+			if (!details || !summary) return;
+
+			const title = this.dataset.title ?? document.title;
+			const url = this.dataset.url ?? location.href;
+
+			const nativeItem = this.querySelector<HTMLLIElement>('[data-share-native]');
+			if (nativeItem && navigator.share) {
+				nativeItem.hidden = false;
+				nativeItem.querySelector('button')?.addEventListener('click', async () => {
+					try {
+						await navigator.share({ title, url });
+					} catch (error) {
+						if (!(error instanceof DOMException && error.name === 'AbortError')) throw error;
+					}
+					details.open = false;
+				});
+			}
+
+			const copyItem = this.querySelector<HTMLLIElement>('[data-share-copy]');
+			if (copyItem && navigator.clipboard?.writeText) {
+				copyItem.hidden = false;
+				const label = copyItem.querySelector('[data-copy-label]');
+				copyItem.querySelector('button')?.addEventListener('click', async () => {
+					await navigator.clipboard.writeText(url);
+					if (label) {
+						label.textContent = 'Copied!';
+						setTimeout(() => (label.textContent = 'Copy link'), 1500);
+					}
+				});
+			}
+
+			details.addEventListener('keydown', (event) => {
+				if (event.key === 'Escape' && details.open) {
+					details.open = false;
+					summary.focus();
+				}
+			});
+
+			document.addEventListener('click', (event) => {
+				if (details.open && event.target instanceof Node && !details.contains(event.target)) {
+					details.open = false;
+				}
+			});
+
+			details.querySelectorAll('a').forEach((link) =>
+				link.addEventListener('click', () => {
+					details.open = false;
+				})
+			);
+		}
+	}
+
+	customElements.define('mentor-share-menu', MentorShareMenu);
+</script>

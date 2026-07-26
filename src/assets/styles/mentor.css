@@ -24,9 +24,50 @@ html[data-theme="light"] {
     --sl-content-width: 50rem;
     --sl-content-margin-inline: unset;
     --sl-color-text-accent: var(--mentor-accent-color);
+
+    /* Centered page frame (VS Code docs style): max frame width and the
+       leftover viewport gutter on each side. Zero below 90rem, so smaller
+       viewports keep the default Starlight layout. */
+    --mentor-frame-width: 90rem;
+    --mentor-gutter: max(0rem, calc((100vw - var(--mentor-frame-width)) / 2));
 }
 
 @layer mentor {
+
+    /* --- Centered page frame ------------------------------------------ */
+    /* The header bar and left sidebar are position: fixed in Starlight, so
+       the frame is centered by shifting them with --mentor-gutter instead
+       of wrapping everything in a max-width container (which would break
+       their fixed positioning). */
+    @media (min-width: 50rem) {
+
+        /* Keep the fixed header bar full-bleed, center its contents. */
+        .page > .header > .header {
+            max-width: calc(var(--mentor-frame-width) - 2 * var(--sl-nav-pad-x));
+            margin-inline: auto;
+        }
+
+        .sidebar-pane {
+            inset-inline-start: var(--mentor-gutter);
+        }
+
+        .main-frame {
+            padding-inline-start: calc(var(--sl-content-inline-start, 0rem) + var(--mentor-gutter));
+            padding-inline-end: var(--mentor-gutter);
+        }
+    }
+
+    @media (min-width: 72rem) {
+
+        /* Starlight sizes the TOC text from 100vw; keep it within the
+           centered frame instead. */
+        .right-sidebar-panel .sl-container {
+            max-width: calc(var(--sl-sidebar-width) - 2 * var(--sl-sidebar-pad-x));
+        }
+    }
+
+    /* ------------------------------------------------------------------ */
+
     html[data-theme="dark"] .sl-link-button.primary {
         color: var(--sl-color-text-invert);
     }
@@ -37,7 +78,7 @@ html[data-theme="light"] {
     }
 
     h1 {
-        font-size: 3.3em;
+        font-size: 3.0em;
     }
 
     .screenshot {
@@ -72,6 +113,17 @@ html[data-theme="light"] {
         padding-bottom: 2rem;
     }
 
+    /* Show the hero screenshot above the page title at full width. */
+    .hero > .hero-html {
+        order: -1;
+        width: 100%;
+        margin-top: 1.5rem;
+    }
+
+    .hero h1 {
+        margin-top: 1em;
+    }
+
     .table td,
     .table th {
         padding-right: 5ch;
@@ -89,7 +141,8 @@ html[data-theme="light"] {
         min-width: 30ch;
     }
 
-    .sl-container {
+    /* Scoped to content panels — .sl-container is also used by the TOC. */
+    .content-panel .sl-container {
         max-width: var(--sl-content-width);
         margin-inline: 1rem;
     }
@@ -103,4 +156,8 @@ html[data-theme="light"] {
     .starlight-aside--note .starlight-aside__icon {
         color: var(--mentor-accent-color);
     }
+}
+
+#starlight__sidebar {
+    background-color: transparent;
 }

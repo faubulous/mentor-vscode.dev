@@ -17,6 +17,32 @@ export default defineConfig({
 				'./src/assets/styles/mentor-icons.css',
 				'./src/assets/styles/codicon.css'
 			],
+			components: {
+				SocialIcons: './src/components/SocialIcons.astro'
+			},
+			head: [
+				{
+					tag: 'meta',
+					attrs: {
+						property: 'og:image',
+						content: 'https://mentor-vscode.dev/og-default.png'
+					}
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						property: 'og:image:width',
+						content: '1200'
+					}
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						property: 'og:image:height',
+						content: '630'
+					}
+				}
+			],
 			social: [{
 				icon: 'github',
 				label: 'GitHub',
