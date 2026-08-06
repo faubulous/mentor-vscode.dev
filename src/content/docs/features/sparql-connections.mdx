@@ -5,18 +5,18 @@ description: The developer friendly IDE for RDF knowledge graph projects.
 
 import { Aside, LinkCard } from '@astrojs/starlight/components';
 
-The SPARQL Connections View provides lets you manage all SPARQL endpoints that 
+The SPARQL Connections View lets you manage all SPARQL endpoints that 
 can be selected in query files or Mentor notebooks to execute queries 
 against local or remote endpoints:
 
-<img class="screenshot my-3" src="/screenshots/sparql-connections-view.png" alt="Screenshot of the SPARQL Connections View in Visual Studio Code" width="500" />
+<img class="screenshot my-3" src="/screenshots/sparql-connections-settings.png" alt="Screenshot of the SPARQL Connections Settings in Visual Studio Code" width="800" />
 
 The view is divided into two sections: **User** and **Workspace**.
 
 <div class="table-20ch">
 | Type | Description |
 | ----------------- | ------------- |
-| **User** | User connections are only available to the current user and are typically stored on the user's local machine. |
+| **User** | User connections are only available to the current user and are typically stored on the user's local machine and can be synced accross devices with [Settings Sync](https://code.visualstudio.com/docs/configure/settings-sync). |
 | **Workspace** | Workspace connections are stored in the .vscode directory and can thus be shared with other users in version controlled repositories. |
 </div>
 
@@ -26,7 +26,8 @@ The connections tree offers several actions that are visible as icons in the tit
 <div class="table-30ch">
 | Action | Description |
 | ----------------- | ------------- |
-| <span class="codicon codicon-debug-disconnect icon-inline"></span> *Test All Connections* | Executes a connection test on all connections in the view. |
+| <span class="codicon codicon-debug-disconnect icon-inline"></span> *Test Connections* | Executes a connection test on all connections in the view. |
+| <span class="codicon codicon-debug-disconnect icon-inline"></span> *Reload Graphs* | Reload all graphs from all connections which have this feature enabled. |
 | <span class="codicon codicon-plus icon-inline"></span> *Add Connection* | Configure a new SPARQL connection. |
 </div>
 
@@ -45,13 +46,23 @@ When you select or hover a connection in the list view, additional actions will 
 
 ## Editing Connections
 When you select an existing connection in the connections manager or when you click on the 'Add Connection' icon,
-the connection details will be displayed in a new tab. 
+the connection details will be displayed in a new dialog window. 
 
 From here, you can modify the connection settings, such as the
 SPARQL endpoint URL, authentication credentials, and other parameters. Once you have made your changes, you can save them
 to update the connection.
 
-<img class="screenshot my-3" src="/screenshots/sparql-connection-workspace.png" alt="SPARQL connection parameter form" width="600"/>
+<img class="screenshot my-3" src="/screenshots/sparql-connection-dialog.png" alt="SPARQL connection parameter form" width="800"/>
+
+The following configuration options are available in the connection settings:
+
+| Setting | Description |
+| ----------------- | ------------- |
+| **Endpoint URL** | The HTTP(s) URL of the SPARQL endpoint to connect to. |
+| **Description** | An optional description which helps to keep connections apart. |
+| **Store** | The store profile to be used for this connection, defaults to SPARQL Endpoint. |
+| **Enable query reasoning by default** | If supported by the store, indicates if the connection should enable inference as a standard. |
+| **Load graphs automatically** | When enabled, Mentor will load and cache the graphs for this connection to support auto-complete discovery and support SPARQL query linting. |
 
 <Aside type="note" title="Workspace Connection">
 The workspace is a special SPARQL endpoint that gives you access to [Mentor's internal RDF triple store](/features/workspace-index/#generated-graphs). The data in this
@@ -67,7 +78,8 @@ The following authentication methods are supported for SPARQL connections:
 | **None** | No authentication. |
 | **Basic** | Basic HTTP(s) authentication using a username and password. |
 | **Bearer Token** | Authentication using a bearer token. |
-| **Microsoft Entra** | Authentication using Microsoft Entra ID provider that is built into Visual Studio Code. |
+| **Entra SSO** | Authentication using Microsoft Entra ID single-sign-on provider that is built into Visual Studio Code. |
+| **Entra Client Credentials** | Authentication using Microsoft Entra Client Credentials flow. |
 
 <Aside type="note" title="Security">
 The credentials for SPARQL connections are stored securely in the Visual Studio Code credential store. This means that your sensitive information, such as usernames and passwords, are not stored in plain text and are protected by the operating system's security features.

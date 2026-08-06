@@ -1,0 +1,318 @@
+---
+title: SHACL Validation
+description: The developer friendly IDE for RDF knowledge graph projects.
+---
+
+import { Aside, LinkCard } from '@astrojs/starlight/components';
+
+Mentor validates the RDF documents in your workspace against [SHACL](https://www.w3.org/TR/shacl/) shape graphs. Validation results are published as ordinary Visual Studio Code diagnostics, so they appear in the [Problems panel](/features/workspace-index#linting-and-validation-results) and as squiggles in the editor, right next to the syntax errors of the same document.
+
+Validation is organised in **profiles**. A profile is self-contained: it bundles a set of SHACL shape graphs with the workspace files they apply to, and decides whether those files are validated automatically. A document can be covered by several profiles at once — the shapes of all matching profiles are combined into one validation run.
+
+The settings are split over two pages, both opened from the Command Palette (`Ctrl+Shift+P`) with the `Mentor: Settings` command:
+
+<div class="table-20ch">
+| Page | Contents |
+| ----------------- | ------------- |
+| **Validation → General** | The master switch, the guard rails that apply to every run, and the statistics of the last workspace validation. |
+| **Validation → Profiles** | The built-in templates and the profiles that decide what is validated against which shapes. |
+</div>
+
+## General
+The General page reports the outcome of the last validation run and holds the settings that apply to validation as a whole:
+
+<img class="screenshot my-3" src="/screenshots/validation-general-settings.png" alt="Screenshot of the Validation General settings in Visual Studio Code" width="800" />
+
+The dashboard at the top summarizes the most recent workspace validation:
+
+<div class="table-20ch">
+| Metric | Description |
+| ----------------- | ------------- |
+| **Validated Files** | Number of files that were actually validated in the last run. |
+| **Skipped Files** | Number of matched files that were skipped because their data graph exceeds the maximum graph size. |
+| **Warnings** | Number of results with warning severity. |
+| **Errors** | Number of results with error severity. |
+| **Time** | Duration of the last run. |
+</div>
+
+Below the dashboard, the page offers the following commands:
+
+<div class="table-30ch">
+| Action | Description |
+| ----------------- | ------------- |
+| <span class="codicon codicon-run-all-coverage icon-inline"></span> *Validate Workspace* | Runs a syntax check over every indexed file, followed by SHACL validation of all profiles. Disabled while validation is turned off or no folder is open. |
+| <span class="codicon codicon-output icon-inline"></span> *Show Validation Log* | Opens the *Mentor Validation* output channel with the detailed log of the last run. |
+</div>
+
+The following settings are available:
+
+<div class="table-30ch">
+| Setting | Description |
+| ----------------- | ------------- |
+| **Enable SHACL Validation** | The master switch. When disabled, the editor code lenses, the title bar validate button and all automatic validation are turned off. |
+| **Maximum Validation Graph Size** | Skips *automatic* validation for documents whose data graph exceeds this many triples (50.000 by default). Set to `0` to disable the limit. |
+| **Shapes Folder** | Workspace-relative folder a template's shapes are copied into (`.mentor/shapes` by default). |
+</div>
+
+<Aside type="note" title="Size Limit">
+The maximum graph size only guards the automatic runs — very large graphs, such as imported vocabularies, would otherwise block the editor on every keystroke. Explicit validation, triggered from a code lens, the title bar or the *Validate Workspace* button, always ignores the limit.
+
+When an automatic run was skipped, the document shows a <span class="codicon codicon-warning icon-inline"></span> *Validation skipped (size limit)* code lens, so silence is never mistaken for a clean result.
+</Aside>
+
+### Status Bar
+While validation is enabled, a dedicated validation item is displayed in the status bar next to the [workspace index](/features/workspace-index#indexing-status) item:
+
+<img class="screenshot my-3" src="/screenshots/validation-status-bar.png" alt="Screenshot of the validation status bar item" width="700" />
+
+<div class="table-20ch">
+| State | Description |
+| ----------------- | ------------- |
+| **Running** | A spinner with the current progress. Clicking the item cancels the run after a confirmation. |
+| **Summary** | The outcome of the last workspace run. Clicking the item opens the General page. |
+| **Configuration error** | Shown when a profile references shape files that do not exist. Clicking the item opens the Profiles page. |
+</div>
+
+## Profiles
+The Profiles page lists the built-in templates and all validation profiles:
+
+<img class="screenshot my-3" src="/screenshots/validation-profiles-settings.png" alt="Screenshot of the Validation Profiles settings in Visual Studio Code" width="800" />
+
+The view is divided into three sections: **Templates**, **Workspace** and **User**.
+
+<div class="table-20ch">
+| Type | Description |
+| ----------------- | ------------- |
+| **Templates** | Built-in SHACL shape graphs that ship with Mentor. They are not active on their own — use one to create a profile, or edit a template's shapes and store your adapted copy in the workspace. |
+| **Workspace** | Profiles are kept in the workspace settings (.vscode/settings.json), which can be shared via version control. |
+| **User** | Profiles kept in your user settings — available in every workspace and synced via [Settings Sync](https://code.visualstudio.com/docs/configure/settings-sync). They can reference built-in and user shapes, but not workspace files. |
+</div>
+
+### View Actions
+Like the [stores view](/features/sparql-stores#view-actions), each editable section has its own action in the section header:
+
+<div class="table-30ch">
+| Action | Description |
+| ----------------- | ------------- |
+| <span class="codicon codicon-plus icon-inline"></span> *Add Profile* | Creates a new, empty validation profile in the configuration scope of the section it was invoked from. |
+</div>
+
+### Profile Actions
+Each profile row summarizes the profile at a glance and offers additional actions when it is selected or hovered:
+
+<img class="screenshot my-3" src="/screenshots/validation-profile-item.png" alt="Hovering over a validation profile item" width="500" />
+
+<div class="table-30ch">
+| Action | Description |
+| ----------------- | ------------- |
+| <span class="codicon codicon-run-coverage icon-inline"></span> *Validate Profile* | Runs SHACL validation over all files the profile applies to. Hidden while validation is disabled. |
+| <span class="codicon codicon-trash icon-inline"></span> *Delete Profile* | Deletes the selected profile after a confirmation. |
+</div>
+
+The subline of a row shows the profile description followed by its live statistics: the enabled automatic validation (`startup`, `on change`), the number of *target files* the profile currently applies to, the number of *excluded files* its exclusions carve out and the number of assigned shape *graphs*. A profile without shape graphs, or one referencing graphs that no longer exist, is flagged with a warning.
+
+### Templates
+A template is a ready-made starting point that bundles a shape graph maintained by Mentor:
+
+<div class="table-20ch">
+| Template | Validates |
+| ----------------- | ------------- |
+| **Basic Ontology** | Classes, properties and named individuals must have a label, a comment and a reference to the defining ontology. |
+| **Basic Taxonomy** | Concepts and schemes must have a preferred label and a definition. Every concept must belong to a scheme. |
+</div>
+
+Both are versioned; the version is shown next to the template name.
+
+Templates support two workflows:
+
+1. **Create a profile from a template.** Click the template row. Mentor copies the template's shape graph into your workspace, under `<Shapes Folder>/<template>-<version>.ttl` — for example `.mentor/shapes/ontology-1.0.0.ttl` — and opens the New Profile dialog, pre-filled with the copied shape file, the template's description and an include pattern of `**/*` so the profile is active right away. All you have to add is a name.
+
+2. **Adapt a template's shapes.** Click the <span class="codicon codicon-edit icon-inline"></span> *Edit* action on the template row. The bundled shape graph opens in an editor as an unsaved Turtle document, so you can adapt it and save your own copy anywhere in the workspace, then reference that file from a profile.
+
+<Aside type="note" title="Why the shapes are copied">
+A profile created from a template validates against a frozen copy in your workspace rather than against the bundled graph. The copy is unaffected by future changes to Mentor's shapes, can be edited to fit your project, and is version-controlled together with the profile that references it.
+
+When the target file already exists with identical content it is reused. A file that differs — because it was edited, or written by an older Mentor release — is never overwritten: you are asked whether to reuse the existing copy or to keep both, in which case the new file gets a numeric suffix.
+</Aside>
+
+## Editing Profiles
+Clicking a profile row, the *Add Profile* action or a template opens the profile dialog. The configuration scope is selected next to the dialog title, the *Save* button and the <span class="codicon codicon-trash icon-inline"></span> *Delete profile* action are located in the dialog header. The settings are grouped into the three tabs **General**, **Shapes** and **Files**:
+
+<img class="screenshot my-3" src="/screenshots/validation-profile-dialog.png" alt="Validation profile dialog" width="800"/>
+
+The following configuration options are available on the **General** tab:
+
+| Setting | Description |
+| ----------------- | ------------- |
+| **Name** | The display name of the profile. Required. The stable profile id is derived from it when the profile is first saved and does not change on rename. |
+| **Description** | An optional description, shown in the profile list and in the shape configuration quick pick. |
+| **Auto validate on startup** | Validates all files the profile applies to once workspace indexing has completed. |
+| **Auto validate on document change** | Re-validates a matched document while it is edited. |
+
+### Shapes
+The **Shapes** tab assigns the SHACL shape graphs the profile validates against:
+
+<img class="screenshot my-3" src="/screenshots/validation-profile-shapes.png" alt="Shapes tab of the validation profile dialog" width="800"/>
+
+By default the list shows the graphs already assigned to the profile. *Edit* switches to the full list of available shape graphs so new ones can be checked, *Done* returns to the assigned graphs; the search box filters within the current list. Each row shows the graph URI, which also tells you where the shapes come from:
+
+<div class="table-20ch">
+| URI | Description |
+| ----------------- | ------------- |
+| `workspace:///…` | A shape file in the workspace, for example the frozen copy created from a template. |
+| `user:///shapes/…` | A personal shape file stored in your user settings and available in every workspace. |
+| `http…` | A built-in vocabulary graph loaded by the [workspace index](/features/workspace-index#framework-ontologies). |
+</div>
+
+Rows offer a <span class="codicon codicon-go-to-file icon-inline"></span> *Open in editor* action, and a graph referenced by the profile but no longer present is marked as **Missing**. A user-scope profile additionally offers *New Shape*, which creates a new user shape file seeded with a commented node shape skeleton and assigns it to the profile.
+
+<Aside type="caution" title="Shapes and Configuration Scopes">
+The available shape graphs follow the profile's scope, because a profile must stay usable wherever it is stored:
+
+- A **user** profile is available in every workspace, so it cannot reference `workspace:///` files. A draft that still does cannot be saved until either the scope or the shapes change.
+- A **workspace** profile is shared with your team, so personal `user:///` shapes are not offered. Shapes already assigned stay visible — with a hint that teammates will see the profile as missing its shapes — so they can be unchecked.
+</Aside>
+
+User shape files are managed with the following commands from the Command Palette:
+
+<div class="table-30ch">
+| Command | Description |
+| ----------------- | ------------- |
+| *New User Shape File...* | Creates an empty user shape file (`.ttl`, `.nt` or `.nq`). |
+| *Import Workspace Shape File into User Shapes...* | Copies a workspace shape graph into your user shapes, leaving the original untouched. |
+| *Clean Up User Shapes...* | Lists user shape files that no profile references any more and deletes the confirmed ones. Files still referenced by a profile of another workspace are marked as protected. |
+</div>
+
+### Files
+The **Files** tab decides which documents the profile applies to, using two lists of workspace-relative paths and glob patterns:
+
+<img class="screenshot my-3" src="/screenshots/validation-profile-files.png" alt="Files tab of the validation profile dialog" width="800"/>
+
+| List | Description |
+| ----------------- | ------------- |
+| **Included Files** | The documents the profile applies to. A profile without include entries matches nothing. |
+| **Excluded Files** | Documents carved out of the included set. Entries use the same syntax — without a `!` prefix. |
+
+Type a pattern into the add box and press `Enter` to commit it; existing entries are edited in place and removed with the <span class="codicon codicon-close icon-inline"></span> button. While a list is still empty, the suggestions `**/*`, `**/*.ttl` and `**/*.(ttl|n3)` are offered as one-click starting points.
+
+Every entry shows the number of workspace files it currently matches, and the summary below the lists shows the effect of the profile as a whole — including whatever is still being typed into an add box, so the effect of a pattern is visible before it is committed.
+
+## Path Patterns
+Include and exclude entries are matched against the workspace-relative path of a document, using standard glob syntax:
+
+<div class="table-20ch">
+| Pattern | Matches |
+| ----------------- | ------------- |
+| `**/*` | Every RDF document in the workspace. |
+| `**/*.ttl` | Every Turtle document, at any depth. |
+| `ontologies/*` | The RDF documents directly inside `ontologies`, but not in its subfolders. |
+| `ontologies/**` | The RDF documents in `ontologies` and all of its subfolders. |
+| `models/data.ttl` | Exactly this one file. |
+| `notebooks/demo.mentor#cell-1` | A single [notebook](/features/notebooks) cell, addressed by its cell slug. |
+</div>
+
+The following rules apply:
+
+- A single `*` does not cross a `/`; use `**/` to match at any depth.
+- An entry whose last path segment contains no literal `.` is **extension-agnostic**: the recognized RDF extensions are appended automatically, so `ontologies/*` behaves like `ontologies/*.{ttl,…}` and never matches a `README.md`. A trailing `**` is treated the same way.
+- An entry without a literal `#` also matches the notebook cells of the files it matches, so a pattern covering a notebook covers its cells as well.
+- Paths are always workspace-relative. Absolute paths and `..` segments are rejected — the entry is flagged with a warning and never matches.
+- A profile applies to a document when at least one include entry matches it and no exclude entry does.
+
+<Aside type="tip" title="Previewing a Pattern">
+Clicking the match count of an entry opens the interactive pattern editor: a quick pick whose input holds the pattern and whose list previews the workspace files it currently matches, updating live while you type. Confirming the input applies the edited pattern, picking a file from the list opens that file instead and leaves the pattern unchanged.
+
+<video class="screenshot my-3" width="800" controls autoplay muted>
+ <source src="/screenshots/validation-pattern-editor.mp4" type="video/mp4"/>
+</video>
+</Aside>
+
+## Automatic Validation
+Both automatic modes are enabled per profile on the **General** tab of the profile dialog:
+
+<div class="table-30ch">
+| Mode | Description |
+| ----------------- | ------------- |
+| **Auto validate on startup** | Once workspace indexing has completed, every file matched by a profile with this option is validated in a single batch run. Its outcome is reported in the dashboard and the status bar. |
+| **Auto validate on document change** | A matched document is re-validated while it is edited. Diagnostics are published quietly, without notifications. |
+</div>
+
+A document is validated automatically only when all of the following hold:
+
+1. **Enable SHACL Validation** is on.
+2. A profile with the corresponding option matches the document, and that profile has at least one shape graph.
+3. The document is free of syntax errors — validating a document that does not parse would only report follow-up problems.
+4. The data graph does not exceed the **Maximum Validation Graph Size**.
+
+<Aside type="note" title="Explicit Validation">
+Automatic validation is a convenience, not the only path. A document can always be validated explicitly from its code lens or the editor title bar, a profile from the <span class="codicon codicon-run-coverage icon-inline"></span> action in the profile list, and the whole workspace from the *Validate Workspace* button or the <span class="codicon codicon-run-all-coverage icon-inline"></span> action in the [Workspace Tree](/features/workspace-tree) title bar. Explicit runs ignore the size limit.
+</Aside>
+
+## Code Lenses
+While validation is enabled, RDF documents show the validation state at the top of the file, next to the other [code lenses](/features/code-lenses):
+
+<img class="screenshot my-3" src="/screenshots/validation-codelens.png" alt="SHACL validation code lenses in the editor" width="700"/>
+
+<div class="table-30ch">
+| Lens | Description |
+| ----------------- | ------------- |
+| <span class="codicon codicon-run-coverage icon-inline"></span> *Validate* | Validates the document against its effective shape graphs. Only shown when shapes are configured. |
+| <span class="codicon codicon-pass icon-inline"></span> *Conforms* | The last run found no issues. Click to open the report. |
+| <span class="codicon codicon-error icon-inline"></span> *N issue(s)* | The last run found issues. Click to open the report. |
+| <span class="codicon codicon-warning icon-inline"></span> *Validation skipped (size limit)* | Automatic validation was skipped because the data graph exceeds the maximum graph size. Click to validate anyway. |
+| <span class="codicon codicon-checklist icon-inline"></span> *Validation: `<profiles>`* | The profiles applied to this document. The tooltip lists the effective shape files and the path patterns that matched. Click to change the assignment. |
+| <span class="codicon codicon-checklist icon-inline"></span> *Validation: not configured* | No profile covers this document. Click to configure one. |
+</div>
+
+A status lens that reports a conforming document while shape graphs are missing is shown as a warning instead — a run that could not load all configured shapes is never presented as a clean pass.
+
+In addition, a *N shapes* lens is displayed next to a subject that is targeted by SHACL shapes, listing those shapes when it is clicked.
+
+<Aside type="note" title="Notebooks">
+[Mentor notebooks](/features/notebooks) participate in validation like ordinary documents: each cell is a validate-able document of its own, addressed by its cell slug. Cells show the *Validate* lens and can be validated with the native cell run button; the result appears as the cell's output instead of a status lens.
+</Aside>
+
+### Configuring Shapes from the Editor
+Clicking the <span class="codicon codicon-checklist icon-inline"></span> *Validation* lens — or running *Configure SHACL Shapes* — opens a quick pick that assigns the current document to validation profiles:
+
+<img class="screenshot my-3" src="/screenshots/validation-shape-picker.png" alt="Configure SHACL Shapes quick pick" width="700"/>
+
+Checking a profile adds the document's path to the profile's *Included Files*, or lifts an exclusion when the document was only excluded. Unchecking a profile removes that entry again, and adds the document to *Excluded Files* when one of the profile's patterns would still match it. The <span class="codicon codicon-files icon-inline"></span> button switches to a picker of individual shape files, which manages a profile that only applies to the current document, and the <span class="codicon codicon-gear icon-inline"></span> button opens the Profiles settings page.
+
+### Validation Reports
+Clicking the status lens of a validated document offers three ways to inspect the result:
+
+<div class="table-20ch">
+| Action | Description |
+| ----------------- | ------------- |
+| **View Problems** | Focuses the Problems panel, where the results are listed as diagnostics. |
+| **Export as Turtle** | Opens the raw SHACL validation report graph (`text/turtle`) in a new editor. |
+| **Export as Plain Text** | Opens a readable summary of the report in a new editor. |
+</div>
+
+## Settings
+The validation settings are stored in the following configuration keys:
+
+<LinkCard
+  title="mentor.shacl.enabled"
+  href="vscode://settings/mentor.shacl.enabled"
+  description="If enabled, Mentor will show the titlebar validate button and editor code lenses.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.shacl.maxGraphSize"
+  href="vscode://settings/mentor.shacl.maxGraphSize"
+  description="Skip automatic SHACL validation for documents whose data graph exceeds this many triples.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.shacl.shapesFolder"
+  href="vscode://settings/mentor.shacl.shapesFolder"
+  description="Workspace-relative folder where a copy of the built-in SHACL shapes is written when a validation profile is created from a template.">
+</LinkCard>
+
+<LinkCard
+  title="mentor.shacl.validation"
+  href="vscode://settings/mentor.shacl.validation"
+  description="Named, self-contained SHACL validation profiles. Each profile bundles a set of shape graphs with the workspace paths it applies to.">
+</LinkCard>

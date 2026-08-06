@@ -5,6 +5,8 @@ description: The developer friendly IDE for RDF knowledge graph projects.
 
 import { Aside, LinkCard } from '@astrojs/starlight/components';
 
+<img class="my-3" src="/workspace-index.svg" alt="Schematic of the Mentor workspace index process and features."/>
+
 Upon opening a workspace, Mentor automatically builds a index of all RDF terms used across the files in your workspace. This index enables features like code lenses and the "Find Usages" and "Go to Definition" commands, allowing you to quickly navigate and explore your knowledge graph project.
 
 The index is kept entirely in memory and will be rebuilt each time you open the workspace. When files have changed, are added or removed the index is updated incrementally to reflect these changes.
@@ -24,7 +26,27 @@ Mentor keeps track of the following RDF related data in your workspace:
 ## Indexing Status
 The indexing process runs in the background and may take a few moments to complete, depending on the size of your workspace. You can monitor the indexing status in the Mentor status bar at the bottom of the Visual Studio Code window:
 
-<img class="screenshot my-3" src="/screenshots/index-status.png" alt="Screenshot of the Indexing status bar in Visual Studio Code" width="600" />
+<img class="screenshot my-3" src="/screenshots/index-status.png" alt="Screenshot of the Indexing status bar in Visual Studio Code" width="700" />
+
+## Indexing Settings
+
+Clicking on the workspace index status bar item will open the Indexing page in the Mentor settings, which provides statistics about
+the current index run and all relevant configuration options:
+
+<img class="screenshot my-3" src="/screenshots/index-settings.png" alt="Screenshot of the Indexing settings page" width="700" />
+
+Below the index statistics, the settings page offers the following commands:
+
+| Command      | Description |
+| ----------------- | ------------- |
+| *Diagnose Workspace*  | Try to load every file in the workspace to detect syntax errors. Does not execute SHACL validation. |
+| *Reindex Workspace* | Clear internal triple store and re-run a the indexing proccess, including the configurated SHACL validation. |
+| *Show Index Log*     | Open a panel which contains a detailed output of the last indexing run. |
+
+## Linting and Validation Results
+All detected parsing, linting or validation results from the indexing run can be accessed via the standard Visual Studio Code Problems panel:
+
+<img class="screenshot my-3" src="/screenshots/problems-panel.png" alt="Screenshot of the Visual Studio Code Problems Panel" width="700" />
 
 ## Generated Graphs
 When indexing RDF files then the contents of all files are stored in an internal in-memory triple store.
