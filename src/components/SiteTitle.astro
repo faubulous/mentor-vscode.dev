@@ -1,0 +1,44 @@
+---
+import Default from '@astrojs/starlight/components/SiteTitle.astro';
+import { getLatestReleaseVersion } from '../utils/release';
+
+// Resolved at build time from the release history page, so the header follows
+// the release notes without a second place to update.
+const version = getLatestReleaseVersion();
+---
+
+<Default />
+{
+	version && (
+		<a
+			class="version-badge sl-hidden md:sl-flex"
+			href="/about/release-history/"
+			title={`Mentor ${version} — read the release notes`}
+		>
+			v{version}
+		</a>
+	)
+}
+
+<style>
+	@layer mentor {
+		.version-badge {
+			align-items: center;
+			align-self: center;
+			/* The title wrapper has no gap of its own. */
+			margin-inline-start: 0.75rem;
+			padding: 0.0625rem 0.5rem;
+			color: var(--sl-color-gray-2);
+			font-size: var(--sl-text-xs);
+			line-height: 1.5;
+			text-decoration: none;
+			white-space: nowrap;
+		}
+
+		.version-badge:hover,
+		.version-badge:focus-visible {
+			border-color: var(--sl-color-text-accent);
+			color: var(--sl-color-text-accent);
+		}
+	}
+</style>

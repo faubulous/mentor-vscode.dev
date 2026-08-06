@@ -18,6 +18,7 @@ export default defineConfig({
 				'./src/assets/styles/codicon.css'
 			],
 			components: {
+				SiteTitle: './src/components/SiteTitle.astro',
 				SocialIcons: './src/components/SocialIcons.astro'
 			},
 			head: [
@@ -80,7 +81,11 @@ export default defineConfig({
 						{
 							label: 'Definitions Tree',
 							slug: 'features/definitions-tree'
-						}
+						},
+						{
+							label: 'SHACL Validation',
+							slug: 'features/shacl-validation'
+						},
 					]
 				},
 				{
@@ -119,13 +124,17 @@ export default defineConfig({
 							slug: 'features/sparql-connections'
 						},
 						{
+							label: 'SPARQL Stores',
+							slug: 'features/sparql-stores'
+						},
+						{
 							label: 'SPARQL Query',
 							slug: 'features/sparql-query'
 						},
 						{
 							label: 'Notebooks',
 							slug: 'features/notebooks'
-						}
+						},
 					]
 				},
 				// {
