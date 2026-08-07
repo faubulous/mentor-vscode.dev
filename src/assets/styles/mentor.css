@@ -42,7 +42,7 @@ html[data-theme="light"] {
     @media (min-width: 50rem) {
 
         /* Keep the fixed header bar full-bleed, center its contents. */
-        .page > .header > .header {
+        .page>.header>.header {
             max-width: calc(var(--mentor-frame-width) - 2 * var(--sl-nav-pad-x));
             margin-inline: auto;
         }
@@ -106,7 +106,8 @@ html[data-theme="light"] {
         gap: 10px;
     }
 
-    .header {
+    .header,
+    .sidebar-content {
         background-color: var(--sl-color-bg);
     }
 
@@ -136,20 +137,12 @@ html[data-theme="light"] {
         inset-block-start: calc(-1 * var(--sl-nav-height));
         inset-inline: calc(-1rem - var(--sl-content-pad-x));
         aspect-ratio: 2 / 1;
-        background-image: url('/constellation-blue-light.svg');
-        background-position: top center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-        mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-    }
-
-    html[data-theme="dark"] .hero:has(> .hero-html)::before {
-        background-image: url('/constellation-purple-orange-dark.svg');
+        background: var(--sl-color-bg);
+        background: linear-gradient(180deg, var(--mentor-accent-background) 0%, var(--sl-color-bg) 100%);
     }
 
     /* Show the hero screenshot above the page title at full width. */
-    .hero > .hero-html {
+    .hero>.hero-html {
         order: -1;
         width: 100%;
         margin-top: 1.5rem;
