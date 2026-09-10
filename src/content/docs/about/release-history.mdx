@@ -3,6 +3,9 @@ title: Release History
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
+### Version 0.6.4: Smaller Package
+- Removed the source maps and compiled tests that 0.6.3 shipped by mistake, reducing the download from 15 MB to 3.6 MB
+
 ### Version 0.6.3: SPARQL Document Query Fix
 - Fixed *Query Document with SPARQL* generating a query that never returned any results ([#83](https://github.com/faubulous/mentor-vscode/issues/83)); a document is loaded into a named graph, so the generated query now scopes to `GRAPH <document>` instead of using the document IRI as a subject
 - The document query template moved to `mentor.sparql.documentQueryTemplate` and can now be overridden per store; a customized template is carried over from the retired setting
