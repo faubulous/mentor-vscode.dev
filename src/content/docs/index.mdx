@@ -23,16 +23,12 @@ hero:
       variant: minimal
 ---
 
-import { Aside } from '@astrojs/starlight/components';
 import { LinkCard } from '@astrojs/starlight/components';
+import LatestRelease from '../../components/latest-release.astro';
 
 ## News
 
-<Aside icon="rss" title="Version 0.6.1">
-- Updated mentor-rdf, mentor-rdf-parsers, and mentor-rdf-serializers to their latest releases
-- Resolved a dependency conflict between chevrotain and the RDF parsing libraries
-- Updated other dependencies to their latest compatible versions
-</Aside>
+<LatestRelease />
 
 [Release History](/about/release-history/)
 
