@@ -1,54 +1,27 @@
 ---
-import fs from "fs";
-import path from "path";
 import { Aside } from "@astrojs/starlight/components";
+import { marked } from "marked";
+import { getLatestRelease } from "../utils/release";
 
-const { filePath = "src/content/docs/about/release-history.mdx" } = Astro.props;
+// The newest entry of the release history page, so that the homepage news
+// section follows a new release without being edited alongside it.
+const release = getLatestRelease();
 
-let fileContent = "";
+const title = release
+    ? release.date
+        ? `Version ${release.version} - ${release.date}`
+        : `Version ${release.version}: ${release.title}`
+    : "";
 
-try {
-    fileContent = fs.readFileSync(path.join(process.cwd(), filePath), "utf-8");
-} catch (err) {
-    fileContent = "";
-}
-
-// Parse the first release entry from the H3-based format used in release-history.mdx.
-// Entries are separated by lines beginning with "### Version ".
-let title = "";
-let body = "";
-
-if (fileContent) {
-    const parts = fileContent.split(/\n(?=### Version )/);
-    const firstEntry = parts.find((p) => p.startsWith("### Version "));
-
-    if (firstEntry) {
-        const lines = firstEntry.split("\n");
-
-        // Heading: "### Version X.Y.Z: Title"
-        const headingMatch = lines[0].match(/^### Version ([\d.]+(?:-\S+)?): (.+)$/);
-        const version = headingMatch ? headingMatch[1] : "";
-        const entryTitle = headingMatch ? headingMatch[2].trim() : "";
-
-        // Date: line containing "codicon-calendar", e.g. `*4th April 2026*`
-        const dateLine = lines.find((l) => l.includes("codicon-calendar"));
-        const dateMatch = dateLine ? dateLine.match(/\*([^*]+)\*/) : null;
-        const date = dateMatch ? dateMatch[1].trim() : "";
-
-        title = date ? `Version ${version} - ${date}` : `Version ${version}: ${entryTitle}`;
-
-        // Body: remaining lines, HTML tags stripped, blank lines at start/end trimmed
-        body = lines
-            .slice(1)
-            .filter((l) => !l.includes("codicon-calendar"))
-            .join("\n")
-            .replace(/<[^>]+>/g, "")
-            .replace(/^\n+/, "")
-            .replace(/\n+$/, "");
-    }
-}
+// The entry body is authored in this repository, so rendering it as HTML
+// introduces no untrusted markup.
+const body = release ? await marked.parse(release.body) : "";
 ---
 
-<Aside icon="rss" title={title}>
-    <Fragment set:markdown={body} />
-</Aside>
+{
+    release && (
+        <Aside icon="rss" title={title}>
+            <Fragment set:html={body} />
+        </Aside>
+    )
+}
