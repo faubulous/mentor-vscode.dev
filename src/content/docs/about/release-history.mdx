@@ -3,6 +3,18 @@ title: Release History
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
+### Version 0.6.5: Exporting Query Results
+- Query results can be exported as a Markdown table or as SPARQL Query Results JSON, next to the existing CSV export
+- The results toolbar sets whether an export opens in a new document or goes to the clipboard, and the choice can be defaulted in the settings
+- Copying the output of a notebook cell now yields the results table ([#89](https://github.com/faubulous/mentor-vscode/issues/89)); the cell previously offered its results only as `application/sparql-results+json`, which the built-in *Copy Cell Output* command cannot read, so it silently copied nothing. The same affected CONSTRUCT and DESCRIBE cells
+- A new *Query → General* settings section sets the export target, whether IRIs are written in full or prefixed, and the format a notebook cell offers to the copy command
+- The definition tree now lists predicates that a data document only uses, whose definitions live in another document ([#90](https://github.com/faubulous/mentor-vscode/issues/90)); the reasoner infers a property from its use as a predicate
+- The raw HTTP response of a query moved from the results toolbar to the *View Raw SPARQL Response* command, and the toolbar slot it occupied now exports JSON
+- Fixed the CSV export escaping single quotes while quoting fields with double quotes, which produced invalid CSV for any value containing a double quote
+- Fixed the Markdown export leaving backslashes unescaped, which ended a table cell early
+- Fixed the results table offering its graph actions only on the first `GRAPH` variable of a query
+- Updated mentor-rdf to 2.1.5, mentor-rdf-parsers to 2.1.0 and mentor-rdf-serializers to 1.9.1
+
 ### Version 0.6.4: Smaller Package
 - Removed the source maps and compiled tests that 0.6.3 shipped by mistake, reducing the download from 15 MB to 3.6 MB
 
