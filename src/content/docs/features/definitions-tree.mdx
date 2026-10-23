@@ -140,8 +140,15 @@ actions to navigate to shape definitions and displaying datatypes for property s
 
 ## Taxonomy
 The tree also supports SKOS terminology, such as concepts, concept schemes and collections. 
-Similar to ontology terms, taxonomy terms are grouped by their source of definition. If no
-concept scheme is found, the terms are grouped under an `Unknown` category.
+Concept schemes are shown as root nodes, with the concepts and collections of the scheme
+listed below them. A concept belongs to a scheme if it is associated with it via `skos:inScheme`
+or `skos:topConceptOf`. A concept that is not associated with any scheme is also shown below the
+schemes it can be reached from via `skos:narrower` or `skos:broader`.
+
+Concepts and collections that do not belong to any concept scheme are grouped by their source
+of definition, like ontology terms, and under the `Unknown` category if no source of definition
+can be found. When the tree is grouped by type, they are listed in their own `Concepts` and
+`Collections` nodes.
 
 ### SKOS
 
