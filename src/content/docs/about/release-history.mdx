@@ -3,6 +3,18 @@ title: Release History
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
+### Version 0.6.6: Workspace and SKOS Fixes
+- Files and folders that are moved, renamed or deleted outside of VS Code, e.g. in a terminal or by a `git checkout`, are now reflected by the workspace tree and the index ([#95](https://github.com/faubulous/mentor-vscode/issues/95)); the index drops the graphs and problems of deleted files, indexes moved-in files and re-indexes files that were changed on disk
+- *Reindex Workspace* and *Refresh Tree* in the workspace tree now discover the workspace files again, so they recover from changes the file watcher did not report
+- Fixed the workspace tree listing the files of a sibling folder whose name starts with the same characters, e.g. `old2/` below `old/`
+- The definitions tree now shows SKOS concepts that are not in a concept scheme and cannot be reached from one ([#101](https://github.com/faubulous/mentor-vscode/issues/101)), and SKOS collections that are not in a concept scheme ([#96](https://github.com/faubulous/mentor-vscode/issues/96)); they are listed below their source of definition or *Unknown*, or in their own nodes when grouped by type
+- Fixed SKOS collections with `skos:inScheme` being inferred to be concepts and listed below the concepts of their scheme ([#96](https://github.com/faubulous/mentor-vscode/issues/96))
+- Fixed the definitions tree not showing a document after its language was changed, e.g. an unsaved file switched from *Plain Text* to *Turtle* ([#104](https://github.com/faubulous/mentor-vscode/issues/104))
+- Prefixed names are now highlighted correctly when the prefix contains a hyphen in TriG and Datalog ([#97](https://github.com/faubulous/mentor-vscode/issues/97)), and when the name contains colons, escaped characters or non-ASCII characters in all languages ([#106](https://github.com/faubulous/mentor-vscode/issues/106), [#107](https://github.com/faubulous/mentor-vscode/issues/107), [#108](https://github.com/faubulous/mentor-vscode/issues/108)); a period that ends a statement is no longer highlighted as part of a name, and the colon of the `:-` operator in Datalog rules is no longer highlighted as a prefix
+- Fixed prefix names that start with a keyword, such as `prefix:`, `base:` or `true:`, failing to parse ([mentor-rdf-parsers#5](https://github.com/faubulous/mentor-rdf-parsers/issues/5))
+- Updated mentor-rdf to 2.1.8, mentor-rdf-parsers to 2.1.1 and mentor-rdf-serializers to 1.9.2
+- Resolved the advisories of the build and test dependencies, including the packaging tool (@vscode/vsce 4)
+
 ### Version 0.6.5: Exporting Query Results
 - Query results can be exported as a Markdown table or as SPARQL Query Results JSON, next to the existing CSV export
 - The results toolbar sets whether an export opens in a new document or goes to the clipboard, and the choice can be defaulted in the settings

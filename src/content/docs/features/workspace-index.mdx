@@ -9,7 +9,7 @@ import { Aside, LinkCard } from '@astrojs/starlight/components';
 
 Upon opening a workspace, Mentor automatically builds a index of all RDF terms used across the files in your workspace. This index enables features like code lenses and the "Find Usages" and "Go to Definition" commands, allowing you to quickly navigate and explore your knowledge graph project.
 
-The index is kept entirely in memory and will be rebuilt each time you open the workspace. When files have changed, are added or removed the index is updated incrementally to reflect these changes.
+The index is kept entirely in memory and will be rebuilt each time you open the workspace. When files have changed, are added or removed the index is updated incrementally to reflect these changes. This includes files and folders that are changed, moved or deleted outside of Visual Studio Code, for example in a terminal or by checking out another branch.
 
 In addition to the term maps, Mentor also maintains an in-memory triple store containing all RDF triples found in the workspace. This allows you to run SPARQL queries against all of your files in the workspace directly from within Visual Studio Code.
 
@@ -40,7 +40,7 @@ Below the index statistics, the settings page offers the following commands:
 | Command      | Description |
 | ----------------- | ------------- |
 | *Diagnose Workspace*  | Try to load every file in the workspace to detect syntax errors. Does not execute SHACL validation. |
-| *Reindex Workspace* | Clear internal triple store and re-run a the indexing proccess, including the configurated SHACL validation. |
+| *Reindex Workspace* | Clear the internal triple store, discover the files in the workspace again and re-run the indexing process, including the configured SHACL validation. |
 | *Show Index Log*     | Open a panel which contains a detailed output of the last indexing run. |
 
 ## Linting and Validation Results
