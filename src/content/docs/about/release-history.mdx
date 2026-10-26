@@ -21,7 +21,8 @@ description: The developer friendly IDE for RDF knowledge graph projects.
 - Fixed commented-out elements in RDF/XML documents being treated as definitions
 - Fixed properties with an `xsd:unsignedLong` or `xsd:unsignedByte` range not being shown as data properties with a number icon in the definitions tree
 - Fixed the definitions tree staying empty for the document that is open when VS Code starts ([#156](https://github.com/faubulous/mentor-vscode/issues/156))
-- Updated mentor-rdf to 2.4.0 and mentor-rdf-parsers to 2.2.1, and removed the direct dependency on N3.js ([#154](https://github.com/faubulous/mentor-vscode/issues/154))
+- Fixed the SPARQL formatter putting a space between a function and its arguments, e.g. `ex:fn (?x)`, `<http://example.org/fn> (?x)` or `NOW ()`; the space before a collection in a triple pattern, e.g. `?s ex:p (1 2)`, is kept ([mentor-rdf-serializers#5](https://github.com/faubulous/mentor-rdf-serializers/issues/5))
+- Updated mentor-rdf to 2.4.0, mentor-rdf-parsers to 2.2.1 and mentor-rdf-serializers to 1.9.3, and removed the direct dependency on N3.js ([#154](https://github.com/faubulous/mentor-vscode/issues/154))
 
 ### Version 0.6.6: Workspace and SKOS Fixes
 - Files and folders that are moved, renamed or deleted outside of VS Code, e.g. in a terminal or by a `git checkout`, are now reflected by the workspace tree and the index ([#95](https://github.com/faubulous/mentor-vscode/issues/95)); the index drops the graphs and problems of deleted files, indexes moved-in files and re-indexes files that were changed on disk
