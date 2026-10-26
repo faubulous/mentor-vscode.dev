@@ -63,12 +63,16 @@ definitions and relationships for common terminology. These ontologies include:
 | `owl` | [http://www.w3.org/2002/07/owl#](http://www.w3.org/2002/07/owl#) |
 | `shacl` | [http://www.w3.org/ns/shacl#](http://www.w3.org/ns/shacl#) |
 | `skos` | [http://www.w3.org/2004/02/skos/core#](http://www.w3.org/2004/02/skos/core#) |
-| `skos-xl`| [http://www.w3.org/2008/05/skos-xl#](http://www.w3.org/2008/05/skos-xl#) |
+| `sparql` | [https://w3id.org/sparql-syntax#](https://w3id.org/sparql-syntax#) |
 | `xsd` | [http://www.w3.org/2001/XMLSchema#](http://www.w3.org/2001/XMLSchema#) |
-| `dcat` | [http://www.w3.org/ns/dcat#](http://www.w3.org/ns/dcat#) |
 
 The IRIs of these ontologies are used as named graphs in the triple store. You can query these 
 graphs directly using SPARQL to access the definitions and relationships they provide.
+
+*Go to Definition* on a term of these ontologies, such as `rdfs:label` or `owl:Class`, opens the 
+ontology source shipped with Mentor in a read-only document, for example `mentor-vfs:/vocabularies/rdfs.ttl`. 
+The same applies to the preset SHACL shapes. A definition of the term in a workspace file takes 
+precedence over the one in the ontology.
 
 ### Documents
 For every RDF document in your workspace, Mentor creates an internal named graph that contains all 

@@ -21,6 +21,12 @@ rename symbol command (F2) to edit it like you would rename variables in other p
 Mentor will automatically update all occurrences of the local name throughout the document in both 
 prefixed and unprefixed forms.
 
+The rename also applies to all other files in the workspace index that reference the URI, including 
+SPARQL queries and RDF/XML documents, whatever prefix or syntax they use. The changes in other files are 
+shown in the *Refactor Preview*, where you can review them before they are applied. To rename the local 
+name within the current document only, disable the setting `mentor.editor.renameAcrossFiles` 
+(*Editor → General* in the Mentor settings).
+
 ## Rename Prefixes
 Prefixes are used to shorten URIs and make them more readable. For example, instead of writing
 `http://example.org/ns#localName`, you can declare a prefix like `ex` and use `ex:localName` instead.
