@@ -3,6 +3,13 @@ title: Release History
 description: The developer friendly IDE for RDF knowledge graph projects.
 ---
 
+### Version 0.7.1: Referenced Classes and Properties in the Definitions Tree
+- Fixed classes and properties from other vocabularies missing from the top level of the definitions tree when the document annotates or declares them, e.g. a `prov:Location` that carries an `rdfs:comment`, or a `prov:Activity` declared as `owl:Class` as Protégé does for the external classes an ontology uses. Their sub classes and sub properties are listed below them again instead of at the top level. A class or property is only hidden when another ontology in the same document defines it ([mentor-rdf#38](https://github.com/faubulous/mentor-rdf/issues/38))
+- The definitions tree now shows the top of a chain of referenced classes or properties that the document states, e.g. `prov:Entity` above `prov:Plan` when the document states `prov:Plan rdfs:subClassOf prov:Entity`, and lists a class or property with several super classes below each of them ([mentor-rdf#38](https://github.com/faubulous/mentor-rdf/issues/38))
+- The top level of the class and property trees is computed faster, as the class and property hierarchies are read in one pass; for EMMO with 2,215 classes, the root classes take 2.3 ms instead of 3.7 ms
+- Hovers, labels and the missing language tag decoration use the asserted triples only where they ask for them, instead of also picking up inferred ones ([mentor-rdf#36](https://github.com/faubulous/mentor-rdf/pull/36))
+- Updated mentor-rdf to 2.6.1 and mentor-rdf-serializers to 1.10.0
+
 ### Version 0.7.0: Rename Across Files and Lower Memory Use
 - **Breaking change:** renaming an IRI (F2) now also renames it in all other indexed files that reference it, including SPARQL queries and RDF/XML documents. Only the local name is replaced, so every prefix and syntax a file uses stays valid. The changes in other files are shown in the *Refactor Preview* before they are applied, and they are undone in one step. Set `mentor.editor.renameAcrossFiles` to `false` (*Editor → General* in the Mentor settings) to rename within the document only, as before. Prefixes, variables and blank nodes are still renamed within the document
 - *Go to Definition* now opens the framework vocabularies shipped with Mentor (RDF, RDFa, RDFS, OWL, SHACL, SKOS, SPARQL and XSD) and the preset SHACL shapes in read-only documents, e.g. for `rdfs:label` or `owl:Class`; a definition in a workspace file takes precedence
